@@ -1,6 +1,6 @@
 import express from "express";
 
-import { categoriesRoutes } from "./routes/categories.routes";
+import { categoriesRoutes } from "./modules/cars/routes/categories.routes";
 
 const app = express();
 
