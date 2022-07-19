@@ -1,1 +1,1 @@
-export { categoriesRoutes } from "../modules/cars/routes";
+export { categoryRoutes } from "~/cars/routes";

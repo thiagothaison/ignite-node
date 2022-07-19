@@ -1,7 +1,7 @@
-import { Category } from "../../models/Category";
-import { ICategoriesRepository, ICreateCategoryDTO } from "./types";
+import { Category } from "~/cars/models/Category";
+import { ICategoryRepository } from "~/cars/types/repositories/Category";
 
-class CategoriesRepository implements ICategoriesRepository {
+class CategoryRepository implements ICategoryRepository {
   private categories: Category[];
 
   constructor() {
@@ -30,4 +30,4 @@ class CategoriesRepository implements ICategoriesRepository {
   }
 }
 
-export { CategoriesRepository };
+export { CategoryRepository };
