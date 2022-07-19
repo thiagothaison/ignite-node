@@ -4,8 +4,19 @@ import { ISpecificationRepository } from "~/cars/types/repositories/Specificatio
 class SpecificationRepository implements ISpecificationRepository {
   private specifications: Specification[];
 
-  constructor() {
+  // eslint-disable-next-line no-use-before-define
+  private static INSTANCE: SpecificationRepository;
+
+  private constructor() {
     this.specifications = [];
+  }
+
+  public static getInstance(): SpecificationRepository {
+    if (!SpecificationRepository.INSTANCE) {
+      SpecificationRepository.INSTANCE = new SpecificationRepository();
+    }
+
+    return SpecificationRepository.INSTANCE;
   }
 
   public create({ description, name }: ICreateSpecificationDTO) {

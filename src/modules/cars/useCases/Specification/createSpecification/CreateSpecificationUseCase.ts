@@ -5,7 +5,7 @@ interface IRequest {
   description: string;
 }
 
-class CreateSpecificationService {
+class CreateSpecificationUseCase {
   constructor(private specificationRepository: ISpecificationRepository) {}
 
   execute({ name, description }: IRequest): void {
@@ -13,11 +13,11 @@ class CreateSpecificationService {
       this.specificationRepository.findByName(name);
 
     if (specificationAlreadyExists) {
-      throw new Error(`A categoria ${name} já existe.`);
+      throw new Error(`A especificação ${name} já existe.`);
     }
 
     this.specificationRepository.create({ name, description });
   }
 }
 
-export { CreateSpecificationService };
+export { CreateSpecificationUseCase };
