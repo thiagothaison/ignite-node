@@ -4,8 +4,19 @@ import { ICategoryRepository } from "~/cars/types/repositories/Category";
 class CategoryRepository implements ICategoryRepository {
   private categories: Category[];
 
-  constructor() {
+  // eslint-disable-next-line no-use-before-define
+  private static INSTANCE: CategoryRepository;
+
+  private constructor() {
     this.categories = [];
+  }
+
+  public static getInstance(): CategoryRepository {
+    if (!CategoryRepository.INSTANCE) {
+      CategoryRepository.INSTANCE = new CategoryRepository();
+    }
+
+    return CategoryRepository.INSTANCE;
   }
 
   public create({ description, name }: ICreateCategoryDTO) {
