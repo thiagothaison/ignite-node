@@ -1,1 +1,1 @@
-export { categoryRoutes } from "~/cars/routes";
+export * from "~/cars/routes";
