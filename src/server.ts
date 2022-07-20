@@ -1,7 +1,11 @@
+import "~/config/dotenv";
+
 import express from "express";
 import SwaggerUi from "swagger-ui-express";
 
 import swaggerFile from "~/root/swagger.json";
+
+import "./database";
 
 import { router } from "./routes";
 
