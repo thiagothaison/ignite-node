@@ -55,6 +55,9 @@
             {
                 "newlinesBetween": "always",
                 "groups": [
+                    "/^~root/",
+                    "/^~config/",
+                    "/^~database/",
                     "module",
                     "/^~/",
                     "/^@shared/",
