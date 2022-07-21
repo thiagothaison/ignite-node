@@ -1,8 +1,18 @@
+import "reflect-metadata";
+import "../config/dotenv";
+
 import { DataSource } from "typeorm";
 
-import { configuration } from "~/root/ormconfig";
-
-const AppDataSource = new DataSource(configuration);
+const AppDataSource = new DataSource({
+  type: "postgres",
+  host: process.env.DB_HOST || "localhost",
+  port: +process.env.DB_PORT || 5432,
+  username: process.env.DB_USERNAME || "test",
+  password: process.env.DB_PASSWORD || "test",
+  database: process.env.DB_DATABASE || "test",
+  logging: !!process.env.DB_LOGGING || false,
+  migrations: ["src/database/migrations/*.ts"],
+});
 
 AppDataSource.initialize()
   .then(() => {
@@ -14,3 +24,5 @@ AppDataSource.initialize()
       err
     );
   });
+
+export default AppDataSource;
