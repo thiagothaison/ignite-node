@@ -32,6 +32,8 @@
     "paths": {
       "~/root/*": ["./*"],
       "~/config/*": ["./src/config/*"],
+      "~/dataSource": ["./src/database/index.ts"],
+      "~/database/*": ["./src/database/*"],
       "~/cars/*": ["./src/modules/cars/*"],
       "~/routes/*": ["./src/routes/*"]
     },
