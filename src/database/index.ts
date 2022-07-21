@@ -12,6 +12,7 @@ const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE || "test",
   logging: !!process.env.DB_LOGGING || false,
   migrations: ["src/database/migrations/*.ts"],
+  entities: ["src/modules/cars/entities/*.ts"],
 });
 
 AppDataSource.initialize()
