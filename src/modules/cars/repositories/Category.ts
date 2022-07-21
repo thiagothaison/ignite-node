@@ -1,41 +1,32 @@
+import { DataSource, Repository } from "typeorm";
+
 import { Category } from "~/cars/entities/Category";
 import { ICategoryRepository } from "~/cars/types/repositories/Category";
 
 class CategoryRepository implements ICategoryRepository {
-  private categories: Category[];
+  private repository: Repository<Category>;
 
-  // eslint-disable-next-line no-use-before-define
-  private static INSTANCE: CategoryRepository;
-
-  private constructor() {
-    this.categories = [];
+  constructor(private dataSource: DataSource) {
+    this.repository = this.dataSource.getRepository(Category);
   }
 
-  public static getInstance(): CategoryRepository {
-    if (!CategoryRepository.INSTANCE) {
-      CategoryRepository.INSTANCE = new CategoryRepository();
-    }
-
-    return CategoryRepository.INSTANCE;
-  }
-
-  public create({ description, name }: ICreateCategoryDTO) {
-    const category = new Category();
-
-    Object.assign(category, {
+  async create({ description, name }) {
+    const category = this.repository.create({
       name,
       description,
     });
 
-    this.categories.push(category);
+    await this.repository.save(category);
   }
 
-  public list() {
-    return this.categories;
+  async list() {
+    const categories = await this.repository.find();
+
+    return categories;
   }
 
-  public findByName(name: string) {
-    const category = this.categories.find((category) => category.name === name);
+  async findByName(name) {
+    const category = await this.repository.findOne({ where: { name } });
 
     return category;
   }

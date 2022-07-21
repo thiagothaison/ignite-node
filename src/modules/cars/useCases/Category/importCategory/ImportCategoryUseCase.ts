@@ -2,12 +2,11 @@ import { parse } from "csv-parse";
 import fs from "fs";
 
 import { CategoryRepository } from "~/cars/repositories/Category";
-import { createCategory } from "~/cars/useCases/Category";
 
 class ImportCategoryUseCase {
   constructor(private categoryRepository: CategoryRepository) {}
 
-  loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
+  async loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
       const categories: IImportCategory[] = [];
 
@@ -35,12 +34,14 @@ class ImportCategoryUseCase {
   async execute(file: Express.Multer.File): Promise<void> {
     const categories = await this.loadCategories(file);
 
-    categories.forEach((category) => {
+    categories.forEach(async (category) => {
       const { name } = category;
-      const categoryAlreadyExists = this.categoryRepository.findByName(name);
+      const categoryAlreadyExists = await this.categoryRepository.findByName(
+        name
+      );
 
       if (!categoryAlreadyExists) {
-        this.categoryRepository.create(category);
+        await this.categoryRepository.create(category);
       }
     });
   }
