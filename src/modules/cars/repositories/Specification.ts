@@ -1,43 +1,32 @@
-import { Specification } from "~/cars/models/Specification";
+import { DataSource, Repository } from "typeorm";
+
+import { Specification } from "~/cars/entities/Specification";
 import { ISpecificationRepository } from "~/cars/types/repositories/Specification";
 
 class SpecificationRepository implements ISpecificationRepository {
-  private specifications: Specification[];
+  private repository: Repository<Specification>;
 
-  // eslint-disable-next-line no-use-before-define
-  private static INSTANCE: SpecificationRepository;
-
-  private constructor() {
-    this.specifications = [];
+  constructor(private dataSource: DataSource) {
+    this.repository = this.dataSource.getRepository(Specification);
   }
 
-  public static getInstance(): SpecificationRepository {
-    if (!SpecificationRepository.INSTANCE) {
-      SpecificationRepository.INSTANCE = new SpecificationRepository();
-    }
-
-    return SpecificationRepository.INSTANCE;
-  }
-
-  public create({ description, name }: ICreateSpecificationDTO) {
-    const specification = new Specification();
-
-    Object.assign(specification, {
+  async create({ description, name }) {
+    const specification = this.repository.create({
       name,
       description,
     });
 
-    this.specifications.push(specification);
+    await this.repository.save(specification);
   }
 
-  public list() {
-    return this.specifications;
+  async list() {
+    const specifications = await this.repository.find();
+
+    return specifications;
   }
 
-  public findByName(name: string) {
-    const specification = this.specifications.find(
-      (specification) => specification.name === name
-    );
+  async findByName(name: string) {
+    const specification = await this.repository.findOne({ where: { name } });
 
     return specification;
   }

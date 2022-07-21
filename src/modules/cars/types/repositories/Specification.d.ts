@@ -1,9 +1,9 @@
-import { Specification } from "~/cars/models/Specification";
+import { Specification } from "~/root/src/modules/cars/entities/Specification";
 
 interface ISpecificationRepository {
-  findByName(name: string): Specification;
-  list(): Specification[];
-  create({ name, description }: ICreateSpecificationDTO): void;
+  create({ name, description }: ICreateSpecificationDTO): Promise<void>;
+  list(): Promise<Specification[]>;
+  findByName(name: string): Promise<Specification>;
 }
 
 export { ISpecificationRepository };

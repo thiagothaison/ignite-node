@@ -1,9 +1,11 @@
+import dataSource from "~/dataSource";
+
 import { SpecificationRepository } from "~/cars/repositories/Specification";
 
 import { ListSpecificationsController } from "./ListSpecificationsController";
 import { ListSpecificationsUseCase } from "./ListSpecificationsUseCase";
 
-const specificationRepository = SpecificationRepository.getInstance();
+const specificationRepository = new SpecificationRepository(dataSource);
 const listSpecificationsUseCase = new ListSpecificationsUseCase(
   specificationRepository
 );

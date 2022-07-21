@@ -1,10 +1,11 @@
-import { Specification } from "~/cars/models/Specification";
+import { Specification } from "~/root/src/modules/cars/entities/Specification";
+
 import { ISpecificationRepository } from "~/cars/types/repositories/Specification";
 
 class ListSpecificationsUseCase {
   constructor(private specificationRepository: ISpecificationRepository) {}
 
-  execute(): Specification[] {
+  async execute(): Promise<Specification[]> {
     return this.specificationRepository.list();
   }
 }
