@@ -1,5 +1,5 @@
-import { Category } from "~/cars/models/Category";
 import { ICategoryRepository } from "~/cars/types/repositories/Category";
+import { Category } from "~/root/src/modules/cars/entities/Category";
 
 class CategoryRepository implements ICategoryRepository {
   private categories: Category[];

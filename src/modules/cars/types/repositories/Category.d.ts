@@ -1,4 +1,4 @@
-import { Category } from "~/cars/models/Category";
+import { Category } from "~/root/src/modules/cars/entities/Category";
 
 interface ICategoryRepository {
   findByName(name: string): Category;
