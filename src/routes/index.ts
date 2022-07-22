@@ -6,6 +6,8 @@ import * as carsRoutes from "~/cars/routes";
 
 const router = Router();
 
+router.use(accountsRoutes.authenticateRoutes);
+
 router.use("/categories", carsRoutes.categoryRoutes);
 router.use("/specifications", carsRoutes.specificationRoutes);
 
