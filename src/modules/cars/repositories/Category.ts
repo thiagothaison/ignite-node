@@ -1,12 +1,17 @@
+import { inject, injectable } from "tsyringe";
 import { DataSource, Repository } from "typeorm";
 
 import { Category } from "~/cars/entities/Category";
 import { ICategoryRepository } from "~/cars/types/repositories/Category";
 
+@injectable()
 class CategoryRepository implements ICategoryRepository {
   private repository: Repository<Category>;
 
-  constructor(private dataSource: DataSource) {
+  constructor(
+    @inject("DataSource")
+    private dataSource: DataSource
+  ) {
     this.repository = this.dataSource.getRepository(Category);
   }
 
