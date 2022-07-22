@@ -1,12 +1,17 @@
+import { inject, injectable } from "tsyringe";
 import { DataSource, Repository } from "typeorm";
 
 import { Specification } from "~/cars/entities/Specification";
 import { ISpecificationRepository } from "~/cars/types/repositories/Specification";
 
+@injectable()
 class SpecificationRepository implements ISpecificationRepository {
   private repository: Repository<Specification>;
 
-  constructor(private dataSource: DataSource) {
+  constructor(
+    @inject("DataSource")
+    private dataSource: DataSource
+  ) {
     this.repository = this.dataSource.getRepository(Specification);
   }
 
@@ -25,7 +30,7 @@ class SpecificationRepository implements ISpecificationRepository {
     return specifications;
   }
 
-  async findByName(name: string) {
+  async findByName(name) {
     const specification = await this.repository.findOne({ where: { name } });
 
     return specification;
