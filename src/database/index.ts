@@ -13,6 +13,7 @@ const AppDataSource = new DataSource({
   logging: !!process.env.DB_LOGGING || false,
   migrations: ["src/database/migrations/*.ts"],
   entities: [
+    "src/modules/accounts/entities/*.ts",
     "src/modules/cars/entities/*.ts",
     "src/modules/common/entities/*.ts",
   ],
