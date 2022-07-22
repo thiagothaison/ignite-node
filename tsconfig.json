@@ -37,6 +37,7 @@
       "~/config/*": ["./src/config/*"],
       "~/dataSource": ["./src/database/index.ts"],
       "~/database/*": ["./src/database/*"],
+      "~/middlewares/*": ["./src/middlewares/*"],
       "~/common/*": ["./src/modules/common/*"],
       "~/cars/*": ["./src/modules/cars/*"],
       "~/accounts/*": ["./src/modules/accounts/*"],
