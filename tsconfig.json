@@ -39,6 +39,7 @@
       "~/database/*": ["./src/database/*"],
       "~/common/*": ["./src/modules/common/*"],
       "~/cars/*": ["./src/modules/cars/*"],
+      "~/accounts/*": ["./src/modules/accounts/*"],
       "~/routes/*": ["./src/routes/*"]
     },
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
