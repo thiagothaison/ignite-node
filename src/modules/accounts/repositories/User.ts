@@ -29,6 +29,12 @@ class UserRepository implements IUserRepository {
 
     return user;
   }
+
+  async findById(id) {
+    const user = await this.repository.findOne({ where: { id } });
+
+    return user;
+  }
 }
 
 export { UserRepository };
