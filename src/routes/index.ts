@@ -1,10 +1,14 @@
 import { Router } from "express";
 
-import * as routes from "~/cars/routes";
+import * as accountsRoutes from "~/accounts/routes";
+
+import * as carsRoutes from "~/cars/routes";
 
 const router = Router();
 
-router.use("/categories", routes.categoryRoutes);
-router.use("/specifications", routes.specificationRoutes);
+router.use("/categories", carsRoutes.categoryRoutes);
+router.use("/specifications", carsRoutes.specificationRoutes);
+
+router.use("/users", accountsRoutes.userRoutes);
 
 export { router };
