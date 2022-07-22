@@ -1,13 +1,12 @@
 import "reflect-metadata";
-
 import "~/config/dotenv";
+import "./database";
+import "./shared/container";
 
 import swaggerFile from "~/root/swagger.json";
 
 import express from "express";
 import SwaggerUi from "swagger-ui-express";
-
-import "./database";
 
 import { router } from "./routes";
 
