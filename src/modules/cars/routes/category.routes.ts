@@ -1,6 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 
+import { ensureAuthenticated } from "~/middlewares/ensureAuthenticated";
+
 import { CreateCategoryController } from "~/cars/useCases/Category/createCategory/CreateCategoryController";
 import { ImportCategoryController } from "~/cars/useCases/Category/importCategory/ImportCategoryController";
 import { ListCategoriesController } from "~/cars/useCases/Category/listCategories/ListCategoriesController";
@@ -15,6 +17,7 @@ const createCategoryController = new CreateCategoryController();
 const importCategoryController = new ImportCategoryController();
 const listCategoriesController = new ListCategoriesController();
 
+categoryRoutes.use(ensureAuthenticated);
 categoryRoutes.get("/", listCategoriesController.handle);
 categoryRoutes.post("/", createCategoryController.handle);
 categoryRoutes.post(
