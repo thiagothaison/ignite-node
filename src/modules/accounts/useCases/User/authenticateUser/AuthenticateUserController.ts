@@ -8,16 +8,9 @@ class AuthenticateUserController {
     const { email, password } = request.body;
 
     const authenticateUserUseCase = container.resolve(AuthenticateUserUseCase);
+    const user = await authenticateUserUseCase.execute({ email, password });
 
-    try {
-      const user = await authenticateUserUseCase.execute({ email, password });
-
-      return response.json(user);
-    } catch (err) {
-      return response.status(404).json({
-        message: err.message,
-      });
-    }
+    return response.json(user);
   }
 }
 
