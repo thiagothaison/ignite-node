@@ -1,5 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "~/errors/AppError";
+
 import { IUserRepository } from "~/accounts/types/repositories/User";
 
 interface IRequest {
@@ -20,7 +22,7 @@ class CreateUserUseCase {
     const userAlreadyExists = await this.userRepository.findByEmail(email);
 
     if (userAlreadyExists) {
-      throw new Error(`O usuário ${email} já existe`);
+      throw new AppError(`O usuário ${email} já existe`, 409);
     }
 
     await this.userRepository.create({

@@ -2,6 +2,8 @@ import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "~/errors/AppError";
+
 import { IUserRepository } from "~/accounts/types/repositories/User";
 
 interface IRequest {
@@ -27,13 +29,13 @@ class AuthenticateUserUseCase {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error("Usuário ou senha inválido");
+      throw new AppError("Usuário ou senha inválido", 422);
     }
 
     const isPasswordMatch = compareSync(password, user.password);
 
     if (!isPasswordMatch) {
-      throw new Error("Usuário ou senha inválido");
+      throw new AppError("Usuário ou senha inválido", 422);
     }
 
     const token = sign({}, process.env.JWT_KEY, {
