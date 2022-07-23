@@ -61,6 +61,7 @@
                     "/^~/database/",
                     "module",
                     "/^~/common/",
+                    "/^~/errors/",
                     "/^~/middlewares/",
                     "/^~/accounts/",
                     "/^~/cars/",
