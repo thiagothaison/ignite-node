@@ -1,3 +1,5 @@
+import UploadConfig from "~/config/upload";
+
 import { Router } from "express";
 import multer from "multer";
 
@@ -9,9 +11,7 @@ import { ListCategoriesController } from "~/cars/useCases/Category/listCategorie
 
 const categoryRoutes = Router();
 
-const upload = multer({
-  dest: "./tmp",
-});
+const upload = multer(UploadConfig.upload("tmp"));
 
 const createCategoryController = new CreateCategoryController();
 const importCategoryController = new ImportCategoryController();
