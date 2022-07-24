@@ -18,6 +18,12 @@ class UserRepository implements IUserRepository {
     await this.repository.save(user);
   }
 
+  async update(parameters) {
+    const { id, ...fields } = parameters;
+
+    await this.repository.update({ id }, fields);
+  }
+
   async list() {
     const users = await this.repository.find();
 
