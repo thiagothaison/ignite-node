@@ -20,6 +20,9 @@ class User extends BaseEntity {
   @Column({ name: "is_admin" })
   isAdmin: boolean;
 
+  @Column()
+  avatar: string;
+
   @BeforeInsert()
   @BeforeUpdate()
   hashPassword() {
