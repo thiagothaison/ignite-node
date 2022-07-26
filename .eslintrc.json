@@ -61,6 +61,7 @@
                     "/^~/config/",
                     "/^~/database/",
                     "module",
+                    "/^~/tests/",
                     "/^~/common/",
                     "/^~/utils/",
                     "/^~/errors/",
