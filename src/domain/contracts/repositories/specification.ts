@@ -1,8 +1,11 @@
+import { CreateSpecification } from "@domain/contracts/dtos/specification/create-specification";
+import { ListSpecifications } from "@domain/contracts/dtos/specification/list-specifications";
+
 import { Specification } from "@infra/typeorm/entities/specification";
 
 interface ISpecificationRepository {
-  create({ name, description }: ICreateSpecification): Promise<void>;
-  list(): Promise<Specification[]>;
+  create(parameters: CreateSpecification.Input): CreateSpecification.Output;
+  list(): ListSpecifications.Output;
   findByName(name: string): Promise<Specification>;
 }
 

@@ -1,8 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
+import { ListCategories } from "@domain/contracts/dtos/category/list-categories";
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
-
-import { Category } from "@infra/typeorm/entities/category";
 
 @injectable()
 class ListCategoriesUseCase {
@@ -11,7 +10,7 @@ class ListCategoriesUseCase {
     private categoryRepository: ICategoryRepository
   ) {}
 
-  async execute(): Promise<Category[]> {
+  async execute(): ListCategories.Output {
     return this.categoryRepository.list();
   }
 }

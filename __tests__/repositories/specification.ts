@@ -11,19 +11,19 @@ class SpecificationRepository implements ISpecificationRepository {
     this.specifications = [];
   }
 
-  async create({ name, description }: ICreateSpecification): Promise<void> {
+  async create(parameters) {
     const specification = new Specification();
 
-    Object.assign(specification, { id: uuidV4(), name, description });
+    Object.assign(specification, { id: uuidV4(), ...parameters });
 
     this.specifications.push(specification);
   }
 
-  async list(): Promise<Specification[]> {
+  async list() {
     return this.specifications;
   }
 
-  async findByName(name: string): Promise<Specification> {
+  async findByName(name) {
     const specification = this.specifications.find(
       (specification) => specification.name === name
     );

@@ -2,21 +2,9 @@ import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import { AuthenticateUser } from "@domain/contracts/dtos/auth/authenticate-user";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { AppError } from "@domain/errors/app-error";
-
-interface IRequest {
-  email: string;
-  password: string;
-}
-
-interface IResponse {
-  user: {
-    name: string;
-    email: string;
-  };
-  token: string;
-}
 
 @injectable()
 class AuthenticateUserUseCase {
@@ -24,7 +12,10 @@ class AuthenticateUserUseCase {
     @inject("UserRepository") private userRepository: IUserRepository
   ) {}
 
-  async execute({ email, password }: IRequest): Promise<IResponse> {
+  async execute({
+    email,
+    password,
+  }: AuthenticateUser.Input): Promise<AuthenticateUser.Output> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {

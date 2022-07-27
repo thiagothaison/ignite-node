@@ -16,8 +16,8 @@ describe("Authenticate User", () => {
     createUserUseCase = new CreateUserUseCase(userRepository);
   });
 
-  const createUser = async (): Promise<ICreateUser> => {
-    const user: ICreateUser = {
+  const createUser = async () => {
+    const user = {
       email: "user@domain.com",
       password: "1a2b3c!@",
       name: "John Doe",

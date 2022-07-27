@@ -1,14 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
+import { UpdateAvatar } from "@domain/contracts/dtos/user/update-avatar";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { deleteFile } from "@domain/utils/file";
-
-import { User } from "@infra/typeorm/entities/user";
-
-interface IRequest {
-  user: User;
-  avatar: string;
-}
 
 @injectable()
 class UpdateUserAvatarUseCase {
@@ -16,7 +10,7 @@ class UpdateUserAvatarUseCase {
     @inject("UserRepository") private userRepository: IUserRepository
   ) {}
 
-  async execute({ user, avatar }: IRequest): Promise<void> {
+  async execute({ user, avatar }: UpdateAvatar.Input): UpdateAvatar.Output {
     const oldAvatar = user.avatar;
 
     user.avatar = avatar;

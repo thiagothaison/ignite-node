@@ -1,15 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
+import { CreateUser } from "@domain/contracts/dtos/user/create-user";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { AppError } from "@domain/errors/app-error";
-
-interface IRequest {
-  name: string;
-  email: string;
-  password: string;
-  driverLicense: string;
-  isAdmin: boolean;
-}
 
 @injectable()
 class CreateUserUseCase {
@@ -17,20 +10,16 @@ class CreateUserUseCase {
     @inject("UserRepository") private userRepository: IUserRepository
   ) {}
 
-  async execute({ name, email, password, driverLicense, isAdmin }: IRequest) {
+  async execute(parameters: CreateUser.Input): CreateUser.Output {
+    const { email } = parameters;
+
     const userAlreadyExists = await this.userRepository.findByEmail(email);
 
     if (userAlreadyExists) {
       throw new AppError(`O usuário ${email} já existe`, 409);
     }
 
-    await this.userRepository.create({
-      name,
-      email,
-      password,
-      driverLicense,
-      isAdmin,
-    });
+    await this.userRepository.create(parameters);
   }
 }
 

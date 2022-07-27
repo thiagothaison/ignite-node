@@ -1,8 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
+import { ListSpecifications } from "@domain/contracts/dtos/specification/list-specifications";
 import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
-
-import { Specification } from "@infra/typeorm/entities/specification";
 
 @injectable()
 class ListSpecificationsUseCase {
@@ -11,7 +10,7 @@ class ListSpecificationsUseCase {
     private specificationRepository: ISpecificationRepository
   ) {}
 
-  async execute(): Promise<Specification[]> {
+  async execute(): ListSpecifications.Output {
     return this.specificationRepository.list();
   }
 }

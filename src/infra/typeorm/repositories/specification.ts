@@ -16,11 +16,8 @@ class SpecificationRepository implements ISpecificationRepository {
     this.repository = this.dataSource.getRepository(Specification);
   }
 
-  async create({ description, name }) {
-    const specification = this.repository.create({
-      name,
-      description,
-    });
+  async create(parameters) {
+    const specification = this.repository.create(parameters);
 
     await this.repository.save(specification);
   }

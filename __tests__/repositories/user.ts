@@ -12,7 +12,7 @@ class UserRepository implements IUserRepository {
     this.users = [];
   }
 
-  async create(parameters: ICreateUser): Promise<void> {
+  async create(parameters) {
     const user = new User();
 
     Object.assign(user, {
@@ -24,21 +24,21 @@ class UserRepository implements IUserRepository {
     this.users.push(user);
   }
 
-  async update(user: User): Promise<void> {
+  async update(user) {
     this.users = this.users.map((currentUser) =>
       currentUser.id === user.id ? currentUser : user
     );
   }
 
-  async list(): Promise<User[]> {
+  async list() {
     return this.users;
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email) {
     return this.users.find((user) => user.email === email);
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id) {
     return this.users.find((user) => user.id === id);
   }
 }

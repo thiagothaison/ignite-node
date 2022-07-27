@@ -11,7 +11,7 @@ class CategoryRepository implements ICategoryRepository {
     this.categories = [];
   }
 
-  async create({ name, description }: ICreateCategory): Promise<void> {
+  async create({ name, description }) {
     const category = new Category();
 
     Object.assign(category, { id: uuidV4(), name, description });
@@ -19,11 +19,11 @@ class CategoryRepository implements ICategoryRepository {
     this.categories.push(category);
   }
 
-  async list(): Promise<Category[]> {
+  async list() {
     return this.categories;
   }
 
-  async findByName(name: string): Promise<Category> {
+  async findByName(name: string) {
     const category = this.categories.find((category) => category.name === name);
 
     return category;

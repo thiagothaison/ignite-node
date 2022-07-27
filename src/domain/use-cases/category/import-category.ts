@@ -2,6 +2,7 @@ import { parse } from "csv-parse";
 import fs from "fs";
 import { inject, injectable } from "tsyringe";
 
+import { ImportCategory } from "@domain/contracts/dtos/category/import-category";
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
 
 @injectable()
@@ -11,9 +12,11 @@ class ImportCategoryUseCase {
     private categoryRepository: ICategoryRepository
   ) {}
 
-  async loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
+  async loadCategories(
+    file: ImportCategory.Input
+  ): Promise<ImportCategory.CsvContent[]> {
     return new Promise((resolve, reject) => {
-      const categories: IImportCategory[] = [];
+      const categories: ImportCategory.CsvContent[] = [];
 
       const stream = fs.createReadStream(file.path);
       const parseFile = parse({
@@ -36,7 +39,7 @@ class ImportCategoryUseCase {
     });
   }
 
-  async execute(file: Express.Multer.File): Promise<void> {
+  async execute(file: ImportCategory.Input): Promise<ImportCategory.Output> {
     const categories = await this.loadCategories(file);
 
     categories.forEach(async (category) => {

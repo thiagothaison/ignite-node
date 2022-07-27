@@ -16,11 +16,8 @@ class CategoryRepository implements ICategoryRepository {
     this.repository = this.dataSource.getRepository(Category);
   }
 
-  async create({ description, name }) {
-    const category = this.repository.create({
-      name,
-      description,
-    });
+  async create(parameters) {
+    const category = this.repository.create(parameters);
 
     await this.repository.save(category);
   }
