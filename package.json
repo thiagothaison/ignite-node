@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn .",
     "typeorm": "typeorm-ts-node-commonjs",
+    "lint": "eslint '*/**/*.ts' --quiet --fix",
     "test": "jest"
   },
   "dependencies": {
