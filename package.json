@@ -1,11 +1,12 @@
 {
   "name": "node-ignite",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/infra/http/server.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn .",
     "typeorm": "typeorm-ts-node-commonjs",
+    "lint": "eslint '*/**/*.ts' --quiet --fix",
     "test": "jest"
   },
   "dependencies": {
