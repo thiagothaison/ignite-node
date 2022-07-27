@@ -1,9 +1,8 @@
-import { SpecificationRepository } from "~/tests/modules/cars/repositories/Specification";
+import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
+import { AppError } from "@domain/errors/app-error";
+import { CreateSpecificationUseCase } from "@domain/use-cases/specification/create-specification";
 
-import { AppError } from "~/errors/AppError";
-
-import { ISpecificationRepository } from "~/cars/types/repositories/Specification";
-import { CreateSpecificationUseCase } from "~/cars/useCases/Specification/createSpecification/CreateSpecificationUseCase";
+import { SpecificationRepository } from "@tests/repositories/specification";
 
 let specificationRepository: ISpecificationRepository;
 let createSpecificationUseCase: CreateSpecificationUseCase;

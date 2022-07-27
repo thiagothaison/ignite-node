@@ -1,7 +1,7 @@
-import { UserRepository } from "~/tests/modules/accounts/repositories/User";
+import { IUserRepository } from "@domain/contracts/repositories/user";
+import { ListUserUseCase } from "@domain/use-cases/user/list-users";
 
-import { IUserRepository } from "~/accounts/types/repositories/User";
-import { ListUserUseCase } from "~/accounts/useCases/User/listUsers/ListUserUseCase";
+import { UserRepository } from "@tests/repositories/user";
 
 let userRepository: IUserRepository;
 let listUserUseCase: ListUserUseCase;

@@ -1,7 +1,7 @@
-import { CategoryRepository } from "~/tests/modules/cars/repositories/Category";
+import { ICategoryRepository } from "@domain/contracts/repositories/category";
+import { ListCategoriesUseCase } from "@domain/use-cases/category/list-categories";
 
-import { ICategoryRepository } from "~/cars/types/repositories/Category";
-import { ListCategoriesUseCase } from "~/cars/useCases/Category/listCategories/ListCategoriesUseCase";
+import { CategoryRepository } from "@tests/repositories/category";
 
 let categoryRepository: ICategoryRepository;
 let listCategoriesUseCase: ListCategoriesUseCase;

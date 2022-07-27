@@ -1,8 +1,9 @@
 import { hashSync } from "bcryptjs";
 import { v4 as uuidV4 } from "uuid";
 
-import { User } from "~/accounts/entities/User";
-import { IUserRepository } from "~/accounts/types/repositories/User";
+import { IUserRepository } from "@domain/contracts/repositories/user";
+
+import { User } from "@infra/typeorm/entities/user";
 
 class UserRepository implements IUserRepository {
   private users: User[];
@@ -11,7 +12,7 @@ class UserRepository implements IUserRepository {
     this.users = [];
   }
 
-  async create(parameters: ICreateUserDTO): Promise<void> {
+  async create(parameters: ICreateUser): Promise<void> {
     const user = new User();
 
     Object.assign(user, {

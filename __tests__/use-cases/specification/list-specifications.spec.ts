@@ -1,7 +1,7 @@
-import { SpecificationRepository } from "~/tests/modules/cars/repositories/Specification";
+import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
+import { ListSpecificationsUseCase } from "@domain/use-cases/specification/list-specifications";
 
-import { ISpecificationRepository } from "~/cars/types/repositories/Specification";
-import { ListSpecificationsUseCase } from "~/cars/useCases/Specification/listSpecifications/ListSpecificationsUseCase";
+import { SpecificationRepository } from "@tests/repositories/specification";
 
 let specificationRepository: ISpecificationRepository;
 let listSpecificationsUseCase: ListSpecificationsUseCase;

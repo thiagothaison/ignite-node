@@ -1,7 +1,8 @@
 import { v4 as uuidV4 } from "uuid";
 
-import { Specification } from "~/cars/entities/Specification";
-import { ISpecificationRepository } from "~/cars/types/repositories/Specification";
+import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
+
+import { Specification } from "@infra/typeorm/entities/specification";
 
 class SpecificationRepository implements ISpecificationRepository {
   private specifications: Specification[];
@@ -10,7 +11,7 @@ class SpecificationRepository implements ISpecificationRepository {
     this.specifications = [];
   }
 
-  async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+  async create({ name, description }: ICreateSpecification): Promise<void> {
     const specification = new Specification();
 
     Object.assign(specification, { id: uuidV4(), name, description });

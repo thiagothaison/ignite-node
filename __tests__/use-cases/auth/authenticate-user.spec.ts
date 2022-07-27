@@ -1,10 +1,9 @@
-import { UserRepository } from "~/tests/modules/accounts/repositories/User";
+import { IUserRepository } from "@domain/contracts/repositories/user";
+import { AppError } from "@domain/errors/app-error";
+import { AuthenticateUserUseCase } from "@domain/use-cases/auth/authenticate-user";
+import { CreateUserUseCase } from "@domain/use-cases/user/create-user";
 
-import { IUserRepository } from "~/accounts/types/repositories/User";
-import { AuthenticateUserUseCase } from "~/accounts/useCases/User/authenticateUser/AuthenticateUserUseCase";
-import { CreateUserUseCase } from "~/accounts/useCases/User/createUser/CreateUserUseCase";
-
-import { AppError } from "../../../../../src/errors/AppError";
+import { UserRepository } from "@tests/repositories/user";
 
 let userRepository: IUserRepository;
 let authenticateUserUseCase: AuthenticateUserUseCase;
@@ -17,8 +16,8 @@ describe("Authenticate User", () => {
     createUserUseCase = new CreateUserUseCase(userRepository);
   });
 
-  const createUser = async (): Promise<ICreateUserDTO> => {
-    const user: ICreateUserDTO = {
+  const createUser = async (): Promise<ICreateUser> => {
+    const user: ICreateUser = {
       email: "user@domain.com",
       password: "1a2b3c!@",
       name: "John Doe",

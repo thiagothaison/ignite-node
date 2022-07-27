@@ -1,7 +1,8 @@
 import { v4 as uuidV4 } from "uuid";
 
-import { Category } from "~/cars/entities/Category";
-import { ICategoryRepository } from "~/cars/types/repositories/Category";
+import { ICategoryRepository } from "@domain/contracts/repositories/category";
+
+import { Category } from "@infra/typeorm/entities/category";
 
 class CategoryRepository implements ICategoryRepository {
   private categories: Category[];
@@ -10,7 +11,7 @@ class CategoryRepository implements ICategoryRepository {
     this.categories = [];
   }
 
-  async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+  async create({ name, description }: ICreateCategory): Promise<void> {
     const category = new Category();
 
     Object.assign(category, { id: uuidV4(), name, description });

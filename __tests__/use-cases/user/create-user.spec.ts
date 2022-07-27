@@ -1,9 +1,8 @@
-import { UserRepository } from "~/tests/modules/accounts/repositories/User";
+import { IUserRepository } from "@domain/contracts/repositories/user";
+import { AppError } from "@domain/errors/app-error";
+import { CreateUserUseCase } from "@domain/use-cases/user/create-user";
 
-import { AppError } from "~/errors/AppError";
-
-import { IUserRepository } from "~/accounts/types/repositories/User";
-import { CreateUserUseCase } from "~/accounts/useCases/User/createUser/CreateUserUseCase";
+import { UserRepository } from "@tests/repositories/user";
 
 let userRepository: IUserRepository;
 let createUserUseCase: CreateUserUseCase;

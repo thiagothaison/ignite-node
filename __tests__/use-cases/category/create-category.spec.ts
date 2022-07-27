@@ -1,9 +1,8 @@
-import { CategoryRepository } from "~/tests/modules/cars/repositories/Category";
+import { ICategoryRepository } from "@domain/contracts/repositories/category";
+import { AppError } from "@domain/errors/app-error";
+import { CreateCategoryUseCase } from "@domain/use-cases/category/create-category";
 
-import { AppError } from "~/errors/AppError";
-
-import { ICategoryRepository } from "~/cars/types/repositories/Category";
-import { CreateCategoryUseCase } from "~/cars/useCases/Category/createCategory/CreateCategoryUseCase";
+import { CategoryRepository } from "@tests/repositories/category";
 
 let categoryRepository: ICategoryRepository;
 let createCategoryUseCase: CreateCategoryUseCase;
