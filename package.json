@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn .",
     "typeorm": "typeorm-ts-node-commonjs",
+    "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/dist/cli/index.js seed",
     "lint": "eslint '*/**/*.ts' --quiet --fix",
     "test": "jest"
   },
@@ -22,6 +23,7 @@
     "swagger-ui-express": "^4.5.0",
     "tsyringe": "^4.7.0",
     "typeorm": "^0.3.7",
+    "typeorm-extension": "^2.1.5",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
