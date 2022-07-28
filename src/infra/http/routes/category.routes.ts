@@ -6,6 +6,8 @@ import { CreateCategoryController } from "@application/controllers/category/crea
 import { ImportCategoryController } from "@application/controllers/category/import-category";
 import { ListCategoriesController } from "@application/controllers/category/list-categories";
 
+import { isAdmin } from "@infra/http/middlewares/is-admin";
+
 const categoryRoutes = Router();
 
 const upload = multer(UploadConfig.upload("tmp"));
@@ -15,6 +17,8 @@ const importCategoryController = new ImportCategoryController();
 const listCategoriesController = new ListCategoriesController();
 
 categoryRoutes.get("/", listCategoriesController.handle);
+
+categoryRoutes.use(isAdmin);
 categoryRoutes.post("/", createCategoryController.handle);
 categoryRoutes.post(
   "/import",

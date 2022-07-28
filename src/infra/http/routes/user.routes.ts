@@ -6,6 +6,8 @@ import { CreateUserController } from "@application/controllers/user/create-user"
 import { ListUserController } from "@application/controllers/user/list-users";
 import { UpdateUserAvatarController } from "@application/controllers/user/update-avatar";
 
+import { isAdmin } from "@infra/http/middlewares/is-admin";
+
 const userRoutes = Router();
 
 const upload = multer(UploadConfig.upload("avatars"));
@@ -15,6 +17,8 @@ const listUserController = new ListUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 
 userRoutes.get("/", listUserController.handle);
+
+userRoutes.use(isAdmin);
 userRoutes.post("/", createUserController.handle);
 userRoutes.patch(
   "/update-avatar",
