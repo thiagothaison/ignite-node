@@ -1,21 +1,13 @@
 import "@application/config/dotenv";
 
+import dataSourceOptions from "@dataSourceOptions";
+
 import { DataSource } from "typeorm";
 
-const AppDataSource = new DataSource({
-  type: "postgres",
-  host: process.env.DB_HOST || "localhost",
-  port: +process.env.DB_PORT || 5432,
-  username: process.env.DB_USERNAME || "test",
-  password: process.env.DB_PASSWORD || "test",
-  database: process.env.DB_DATABASE || "test",
-  logging: !!process.env.DB_LOGGING || false,
-  migrations: ["src/infra/typeorm/migrations/*.ts"],
-  entities: ["src/infra/typeorm/entities/*.ts"],
-});
+const AppDataSource = new DataSource(dataSourceOptions);
 
 AppDataSource.initialize()
-  .then(() => {
+  .then(async () => {
     console.log("🔥 Successfully connected with database");
   })
   .catch((err) => {
