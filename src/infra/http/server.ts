@@ -7,7 +7,7 @@ import express from "express";
 import "express-async-errors";
 import SwaggerUi from "swagger-ui-express";
 
-import { jsonErrors } from "./middlewares/json-errors";
+import { errorHandler } from "./middlewares/error-handler";
 import { router } from "./routes";
 
 const HTTP_PORT = process.env.HTTP_PORT || 3000;
@@ -20,7 +20,7 @@ app.use("/docs", SwaggerUi.serve, SwaggerUi.setup(swaggerFile));
 
 app.use(router);
 
-app.use(jsonErrors);
+app.use(errorHandler);
 
 app.listen(HTTP_PORT, () =>
   console.log(`🔥 Server started at http://localhost:${HTTP_PORT}`)

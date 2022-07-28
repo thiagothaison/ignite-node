@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { AppError } from "@domain/errors/app-error";
 
-const jsonErrors = (
+const errorHandler = (
   err: Error,
   request: Request,
   response: Response,
@@ -22,4 +22,4 @@ const jsonErrors = (
   });
 };
 
-export { jsonErrors };
+export { errorHandler };
