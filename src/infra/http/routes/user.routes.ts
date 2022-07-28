@@ -6,7 +6,7 @@ import { CreateUserController } from "@application/controllers/user/create-user"
 import { ListUserController } from "@application/controllers/user/list-users";
 import { UpdateUserAvatarController } from "@application/controllers/user/update-avatar";
 
-import { ensureAuthenticated } from "@infra/http/middlewares/ensure-authenticated";
+import { jwtAuth } from "@infra/http/middlewares/jwt.auth";
 
 const userRoutes = Router();
 
@@ -18,7 +18,7 @@ const updateUserAvatarController = new UpdateUserAvatarController();
 
 userRoutes.post("/", createUserController.handle);
 
-userRoutes.use(ensureAuthenticated);
+userRoutes.use(jwtAuth);
 userRoutes.get("/", listUserController.handle);
 userRoutes.patch(
   "/update-avatar",

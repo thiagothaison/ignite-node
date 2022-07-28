@@ -6,7 +6,7 @@ import { CreateCategoryController } from "@application/controllers/category/crea
 import { ImportCategoryController } from "@application/controllers/category/import-category";
 import { ListCategoriesController } from "@application/controllers/category/list-categories";
 
-import { ensureAuthenticated } from "@infra/http/middlewares/ensure-authenticated";
+import { jwtAuth } from "@infra/http/middlewares/jwt.auth";
 
 const categoryRoutes = Router();
 
@@ -16,7 +16,7 @@ const createCategoryController = new CreateCategoryController();
 const importCategoryController = new ImportCategoryController();
 const listCategoriesController = new ListCategoriesController();
 
-categoryRoutes.use(ensureAuthenticated);
+categoryRoutes.use(jwtAuth);
 categoryRoutes.get("/", listCategoriesController.handle);
 categoryRoutes.post("/", createCategoryController.handle);
 categoryRoutes.post(

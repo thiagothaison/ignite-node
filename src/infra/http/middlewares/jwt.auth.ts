@@ -6,7 +6,7 @@ import { AppError } from "@domain/errors/app-error";
 
 import { UserRepository } from "@infra/typeorm/repositories/user";
 
-const ensureAuthenticated = async (
+const jwtAuth = async (
   request: Request,
   response: Response,
   next: NextFunction
@@ -37,4 +37,4 @@ const ensureAuthenticated = async (
   }
 };
 
-export { ensureAuthenticated };
+export { jwtAuth };
