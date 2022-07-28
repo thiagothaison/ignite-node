@@ -1,7 +1,6 @@
 import "@application/config/dotenv";
-import "@infra/typeorm";
-
 import "@infra/tsyringe/container";
+
 import swaggerFile from "@swaggerFile";
 
 import express from "express";
