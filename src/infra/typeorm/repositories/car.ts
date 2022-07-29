@@ -19,6 +19,10 @@ class CarRepository implements ICarRepository {
     await this.repository.save(car);
   }
 
+  async update(car) {
+    await this.repository.save(car);
+  }
+
   async list(filters) {
     const cars = await this.repository.find({ where: filters });
 
@@ -27,6 +31,12 @@ class CarRepository implements ICarRepository {
 
   async findByLicensePlate(licensePlate) {
     const car = await this.repository.findOne({ where: { licensePlate } });
+
+    return car;
+  }
+
+  async findById(id) {
+    const car = await this.repository.findOne({ where: { id } });
 
     return car;
   }
