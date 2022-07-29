@@ -1,6 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+} from "typeorm";
 
 import { Category } from "@infra/typeorm/entities/category";
+import { Specification } from "@infra/typeorm/entities/specification";
 
 import BaseEntity from "./base-entity";
 
@@ -33,6 +41,14 @@ class Car extends BaseEntity {
   @ManyToOne(() => Category)
   @JoinColumn({ name: "category_id" })
   category?: Category;
+
+  @ManyToMany(() => Specification)
+  @JoinTable({
+    name: "specifications_cars",
+    joinColumn: { name: "car_id", referencedColumnName: "id" },
+    inverseJoinColumn: { name: "specification_id" },
+  })
+  specifications?: Specification[];
 }
 
 export { Car };
