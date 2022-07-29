@@ -19,8 +19,8 @@ class CarRepository implements ICarRepository {
     await this.repository.save(car);
   }
 
-  async list() {
-    const cars = await this.repository.find();
+  async list(filters) {
+    const cars = await this.repository.find({ where: filters });
 
     return cars;
   }

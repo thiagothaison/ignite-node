@@ -5,7 +5,7 @@ import { Car } from "@infra/typeorm/entities/car";
 
 interface ICarRepository {
   create(parameters: CreateCar.Input): CreateCar.Output;
-  list(): ListCars.Output;
+  list(filters?: ListCars.Input): ListCars.Output;
   findByLicensePlate(licensePlate: string): Promise<Car>;
 }
 
