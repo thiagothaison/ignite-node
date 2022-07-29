@@ -33,6 +33,12 @@ class SpecificationRepository implements ISpecificationRepository {
 
     return specification;
   }
+
+  async findById(id) {
+    const specification = await this.repository.findOne({ where: { id } });
+
+    return specification;
+  }
 }
 
 export { SpecificationRepository };

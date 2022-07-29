@@ -7,6 +7,7 @@ interface ISpecificationRepository {
   create(parameters: CreateSpecification.Input): CreateSpecification.Output;
   list(): ListSpecifications.Output;
   findByName(name: string): Promise<Specification>;
+  findById(id: string): Promise<Specification>;
 }
 
 export { ISpecificationRepository };

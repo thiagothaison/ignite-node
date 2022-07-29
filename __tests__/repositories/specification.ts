@@ -30,6 +30,14 @@ class SpecificationRepository implements ISpecificationRepository {
 
     return specification;
   }
+
+  async findById(id) {
+    const specification = this.specifications.find(
+      (specification) => specification.id === id
+    );
+
+    return specification;
+  }
 }
 
 export { SpecificationRepository };
