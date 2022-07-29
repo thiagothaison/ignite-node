@@ -23,6 +23,12 @@ class CarRepository implements ICarRepository {
     this.cars.push(car);
   }
 
+  async update(car) {
+    this.cars = this.cars.map((currentCar) =>
+      currentCar.id === car.id ? currentCar : car
+    );
+  }
+
   async list(filters) {
     return this.cars.filter((car) => {
       let passed = true;
@@ -39,6 +45,12 @@ class CarRepository implements ICarRepository {
 
   async findByLicensePlate(licensePlate) {
     const car = this.cars.find((car) => car.licensePlate === licensePlate);
+
+    return car;
+  }
+
+  async findById(id) {
+    const car = this.cars.find((car) => car.id === id);
 
     return car;
   }
