@@ -2,8 +2,8 @@ import { Router } from "express";
 import multer from "multer";
 
 import UploadConfig from "@application/config/upload";
-import { CreateUserController } from "@application/controllers/user/create-user";
-import { ListUserController } from "@application/controllers/user/list-users";
+import { CreateUserController } from "@application/controllers/user/create";
+import { ListUserController } from "@application/controllers/user/list";
 import { UpdateUserAvatarController } from "@application/controllers/user/update-avatar";
 
 import { isAdmin } from "@infra/http/middlewares/is-admin";

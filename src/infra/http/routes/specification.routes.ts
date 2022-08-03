@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import { CreateSpecificationController } from "@application/controllers/specification/create-specificaiton";
-import { ListSpecificationsController } from "@application/controllers/specification/list-specifications";
+import { CreateSpecificationController } from "@application/controllers/specification/create";
+import { ListSpecificationsController } from "@application/controllers/specification/list";
 
 import { isAdmin } from "@infra/http/middlewares/is-admin";
 
