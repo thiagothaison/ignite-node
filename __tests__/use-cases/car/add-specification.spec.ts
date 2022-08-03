@@ -23,7 +23,7 @@ describe("Add specification", () => {
   const createCar = async () => {
     const licensePlate = "BTU-2022";
 
-    await carRepository.create({
+    const car = await carRepository.create({
       brand: "Renault",
       dailyRate: 100,
       name: "Fluence",
@@ -33,18 +33,14 @@ describe("Add specification", () => {
       categoryId: "uuu",
     });
 
-    const car = await carRepository.findByLicensePlate(licensePlate);
-
     return car;
   };
 
   const createSpecification = async () => {
-    await specificationRepository.create({
+    const specification = await specificationRepository.create({
       name: "ABS",
       description: "This is a specification description",
     });
-
-    const specification = specificationRepository.findByName("ABS");
 
     return specification;
   };

@@ -17,6 +17,8 @@ class SpecificationRepository implements ISpecificationRepository {
     Object.assign(specification, { id: uuidV4(), ...parameters });
 
     this.specifications.push(specification);
+
+    return specification;
   }
 
   async list() {

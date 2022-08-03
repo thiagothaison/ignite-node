@@ -37,7 +37,7 @@ describe("Create rental", () => {
   const createCar = async () => {
     const licensePlate = "BTU-2022";
 
-    await carRepository.create({
+    const car = await carRepository.create({
       brand: "Renault",
       dailyRate: 100,
       name: "Fluence",
@@ -47,23 +47,19 @@ describe("Create rental", () => {
       categoryId: "uuu",
     });
 
-    const car = await carRepository.findByLicensePlate(licensePlate);
-
     return car;
   };
 
   const createUser = async () => {
     const email = "user@domain.com";
 
-    await userRepository.create({
+    const user = await userRepository.create({
       name: "John Doe",
       email,
       password: "1a2b3c!@",
       isAdmin: false,
       driverLicense: "00000000123",
     });
-
-    const user = await userRepository.findByEmail("user@domain.com");
 
     return user;
   };

@@ -38,6 +38,8 @@ class CarRepository implements ICarRepository {
 
   async list(filters: ListFilters) {
     return this.cars.filter((car) => {
+      if (!filters) return true;
+
       let passed = true;
 
       Object.keys(filters).forEach((key) => {

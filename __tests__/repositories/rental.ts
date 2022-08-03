@@ -27,6 +27,8 @@ class RentalRepository implements IRentalRepository {
 
   async list(filters: ListFilters) {
     return this.rentals.filter((rental) => {
+      if (!filters) return true;
+
       let passed = true;
 
       Object.keys(filters).forEach((key) => {
