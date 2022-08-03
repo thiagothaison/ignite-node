@@ -1,24 +1,22 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateCarImage } from "@domain/contracts/dtos/car-image/create";
 import { ICarRepository } from "@domain/contracts/repositories/car";
 import { ICarImageRepository } from "@domain/contracts/repositories/car-image";
+import {
+  ICreateCarImageUseCase,
+  Input,
+} from "@domain/contracts/use-cases/car-image/create";
 import { AppError } from "@domain/errors/app-error";
 
-type Input = {
-  carId: string;
-  images: string[];
-};
-
 @injectable()
-class CreateCarImageUseCase {
+class CreateCarImageUseCase implements ICreateCarImageUseCase {
   constructor(
     @inject("CarRepository") private carRepository: ICarRepository,
     @inject("CarImageRepository")
     private carImageRepository: ICarImageRepository
   ) {}
 
-  async execute({ carId, images }: Input): CreateCarImage.Output {
+  async execute({ carId, images }: Input) {
     const car = await this.carRepository.findById(carId);
 
     if (!car) {

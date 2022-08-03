@@ -1,16 +1,19 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateUser } from "@domain/contracts/dtos/user/create";
 import { IUserRepository } from "@domain/contracts/repositories/user";
+import {
+  ICreateUserUseCase,
+  Input,
+} from "@domain/contracts/use-cases/user/create";
 import { AppError } from "@domain/errors/app-error";
 
 @injectable()
-class CreateUserUseCase {
+class CreateUserUseCase implements ICreateUserUseCase {
   constructor(
     @inject("UserRepository") private userRepository: IUserRepository
   ) {}
 
-  async execute(parameters: CreateUser.Input): CreateUser.Output {
+  async execute(parameters: Input) {
     const { email } = parameters;
 
     const userAlreadyExists = await this.userRepository.findByEmail(email);

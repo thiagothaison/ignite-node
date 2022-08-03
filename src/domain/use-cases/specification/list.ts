@@ -1,16 +1,16 @@
 import { inject, injectable } from "tsyringe";
 
-import { ListSpecifications } from "@domain/contracts/dtos/specification/list";
 import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
+import { IListSpecificationsUseCase } from "@domain/contracts/use-cases/specifications/list";
 
 @injectable()
-class ListSpecificationsUseCase {
+class ListSpecificationsUseCase implements IListSpecificationsUseCase {
   constructor(
     @inject("SpecificationRepository")
     private specificationRepository: ISpecificationRepository
   ) {}
 
-  async execute(): ListSpecifications.Output {
+  async execute() {
     return this.specificationRepository.list();
   }
 }

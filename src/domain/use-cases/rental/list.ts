@@ -1,15 +1,18 @@
 import { inject, injectable } from "tsyringe";
 
-import { ListRentals } from "@domain/contracts/dtos/rental/list";
 import { IRentalRepository } from "@domain/contracts/repositories/rental";
+import {
+  IListRentalsUseCase,
+  Input,
+} from "@domain/contracts/use-cases/rental/list";
 
 @injectable()
-class ListRentalsUseCase {
+class ListRentalsUseCase implements IListRentalsUseCase {
   constructor(
     @inject("RentalRepository") private rentalRepository: IRentalRepository
   ) {}
 
-  async execute(filters?: ListRentals.Input): ListRentals.Output {
+  async execute(filters?: Input) {
     const rentals = this.rentalRepository.list(filters);
 
     return rentals;

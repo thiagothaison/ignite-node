@@ -1,14 +1,17 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateRental } from "@domain/contracts/dtos/rental/create";
 import { IDateProvider } from "@domain/contracts/providers/date-provider";
 import { ICarRepository } from "@domain/contracts/repositories/car";
 import { IRentalRepository } from "@domain/contracts/repositories/rental";
 import { IUserRepository } from "@domain/contracts/repositories/user";
+import {
+  ICreateRentalUseCase,
+  Input,
+} from "@domain/contracts/use-cases/rental/create";
 import { AppError } from "@domain/errors/app-error";
 
 @injectable()
-class CreateRentalUseCase {
+class CreateRentalUseCase implements ICreateRentalUseCase {
   constructor(
     @inject("RentalRepository") private rentalRepository: IRentalRepository,
     @inject("CarRepository") private carRepository: ICarRepository,
@@ -16,7 +19,7 @@ class CreateRentalUseCase {
     @inject("DateProvider") private dateProvider: IDateProvider
   ) {}
 
-  async execute(parameters: CreateRental.Input): CreateRental.Output {
+  async execute(parameters: Input) {
     const minimumHoursToCreateRental = 24;
 
     const { carId, userId, expectedEndAt } = parameters;

@@ -1,20 +1,20 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateCategory } from "@domain/contracts/dtos/category/create";
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
+import {
+  ICreateCategoryUseCase,
+  Input,
+} from "@domain/contracts/use-cases/category/create";
 import { AppError } from "@domain/errors/app-error";
 
 @injectable()
-class CreateCategoryUseCase {
+class CreateCategoryUseCase implements ICreateCategoryUseCase {
   constructor(
     @inject("CategoryRepository")
     private categoryRepository: ICategoryRepository
   ) {}
 
-  async execute({
-    name,
-    description,
-  }: CreateCategory.Input): CreateCategory.Output {
+  async execute({ name, description }: Input) {
     const categoryAlreadyExists = await this.categoryRepository.findByName(
       name
     );
