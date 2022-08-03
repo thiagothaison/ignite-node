@@ -1,7 +1,11 @@
 import { inject, injectable } from "tsyringe";
 import { DataSource, Repository } from "typeorm";
 
-import { IUserRepository } from "@domain/contracts/repositories/user";
+import {
+  CreateParameters,
+  IUserRepository,
+  UpdateParameters,
+} from "@domain/contracts/repositories/user";
 
 import { User } from "@infra/typeorm/entities/user";
 
@@ -13,16 +17,22 @@ class UserRepository implements IUserRepository {
     this.repository = dataSource.getRepository(User);
   }
 
-  async create(fields) {
-    const user = this.repository.create(fields);
+  async create(data: CreateParameters) {
+    const user = this.repository.create(data);
 
     await this.repository.save(user);
+
+    return user;
   }
 
-  async update(user) {
-    const { id, ...fields } = user;
+  async update(data: UpdateParameters) {
+    const { id, ...fields } = data;
 
     await this.repository.update({ id }, fields);
+
+    const user = await this.findById(id);
+
+    return user;
   }
 
   async list() {

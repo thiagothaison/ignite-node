@@ -1,15 +1,24 @@
-import { CreateUser } from "@domain/contracts/dtos/user/create-user";
-import { ListUsers } from "@domain/contracts/dtos/user/list-users";
-import { UpdateUser } from "@domain/contracts/dtos/user/update-user";
-
 import { User } from "@infra/typeorm/entities/user";
 
+type CreateParameters = {
+  name: string;
+  email: string;
+  password: string;
+  driverLicense: string;
+  isAdmin: boolean;
+};
+
+type UpdateParameters = CreateParameters & {
+  id: string;
+  avatar?: string;
+};
+
 interface IUserRepository {
-  create(parameters: CreateUser.Input): CreateUser.Output;
-  update(user: UpdateUser.Input): UpdateUser.Output;
-  list(): ListUsers.Output;
+  create(data: CreateParameters): Promise<User>;
+  update(data: UpdateParameters): Promise<User>;
+  list(): Promise<User[]>;
   findByEmail(email: string): Promise<User>;
   findById(id: string): Promise<User>;
 }
 
-export { IUserRepository };
+export { CreateParameters, IUserRepository, UpdateParameters };
