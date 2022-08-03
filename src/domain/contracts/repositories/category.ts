@@ -1,12 +1,14 @@
-import { CreateCategory } from "@domain/contracts/dtos/category/create-category";
-import { ListCategories } from "@domain/contracts/dtos/category/list-categories";
-
 import { Category } from "@infra/typeorm/entities/category";
 
+type CreateParameters = {
+  name: string;
+  description: string;
+};
+
 interface ICategoryRepository {
-  create(parameters: CreateCategory.Input): CreateCategory.Output;
-  list(): ListCategories.Output;
+  create(data: CreateParameters): Promise<Category>;
+  list(): Promise<Category[]>;
   findByName(name: string): Promise<Category>;
 }
 
-export { ICategoryRepository };
+export { ICategoryRepository, CreateParameters };

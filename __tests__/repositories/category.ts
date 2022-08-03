@@ -1,6 +1,9 @@
 import { v4 as uuidV4 } from "uuid";
 
-import { ICategoryRepository } from "@domain/contracts/repositories/category";
+import {
+  CreateParameters,
+  ICategoryRepository,
+} from "@domain/contracts/repositories/category";
 
 import { Category } from "@infra/typeorm/entities/category";
 
@@ -11,12 +14,14 @@ class CategoryRepository implements ICategoryRepository {
     this.categories = [];
   }
 
-  async create({ name, description }) {
+  async create(data: CreateParameters) {
     const category = new Category();
 
-    Object.assign(category, { id: uuidV4(), name, description });
+    Object.assign(category, { id: uuidV4(), ...data });
 
     this.categories.push(category);
+
+    return category;
   }
 
   async list() {
