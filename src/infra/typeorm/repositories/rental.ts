@@ -1,8 +1,11 @@
 import { inject, injectable } from "tsyringe";
 import { DataSource, IsNull, Repository } from "typeorm";
 
-import { CreateRental } from "@domain/contracts/dtos/rental/create";
-import { IRentalRepository } from "@domain/contracts/repositories/rental";
+import {
+  CreateParameters,
+  IRentalRepository,
+  ListFilters,
+} from "@domain/contracts/repositories/rental";
 
 import { Rental } from "@infra/typeorm/entities/rental";
 
@@ -14,15 +17,15 @@ class RentalRepository implements IRentalRepository {
     this.repository = this.dataSource.getRepository(Rental);
   }
 
-  async create(parameters: CreateRental.Input) {
-    const rental = this.repository.create(parameters);
+  async create(data: CreateParameters) {
+    const rental = this.repository.create(data);
 
     await this.repository.save(rental);
 
     return rental;
   }
 
-  async list(filters) {
+  async list(filters: ListFilters) {
     const rentals = await this.repository.find({ where: filters });
 
     return rentals;
