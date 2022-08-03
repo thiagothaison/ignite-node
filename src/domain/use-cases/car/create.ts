@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateCar } from "@domain/contracts/dtos/car/create-car";
+import { CreateCar } from "@domain/contracts/dtos/car/create";
 import { ICarRepository } from "@domain/contracts/repositories/car";
 import { AppError } from "@domain/errors/app-error";
 

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { ListCategories } from "@domain/contracts/dtos/category/list-categories";
+import { ListCategories } from "@domain/contracts/dtos/category/list";
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
 
 @injectable()

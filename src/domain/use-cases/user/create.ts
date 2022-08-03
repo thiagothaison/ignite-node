@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateUser } from "@domain/contracts/dtos/user/create-user";
+import { CreateUser } from "@domain/contracts/dtos/user/create";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { AppError } from "@domain/errors/app-error";
 

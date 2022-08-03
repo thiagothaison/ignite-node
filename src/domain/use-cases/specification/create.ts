@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateSpecification } from "@domain/contracts/dtos/specification/create-specification";
+import { CreateSpecification } from "@domain/contracts/dtos/specification/create";
 import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
 import { AppError } from "@domain/errors/app-error";
 

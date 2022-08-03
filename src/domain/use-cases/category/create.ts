@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateCategory } from "@domain/contracts/dtos/category/create-category";
+import { CreateCategory } from "@domain/contracts/dtos/category/create";
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
 import { AppError } from "@domain/errors/app-error";
 

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { ListCars } from "@domain/contracts/dtos/car/list-cars";
+import { ListCars } from "@domain/contracts/dtos/car/list";
 import { ICarRepository } from "@domain/contracts/repositories/car";
 
 @injectable()

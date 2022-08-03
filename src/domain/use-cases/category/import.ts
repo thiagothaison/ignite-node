@@ -2,7 +2,7 @@ import { parse } from "csv-parse";
 import fs from "fs";
 import { inject, injectable } from "tsyringe";
 
-import { ImportCategory } from "@domain/contracts/dtos/category/import-category";
+import { ImportCategory } from "@domain/contracts/dtos/category/import";
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
 
 @injectable()

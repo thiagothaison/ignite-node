@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { ListUsers } from "@domain/contracts/dtos/user/list-users";
+import { ListUsers } from "@domain/contracts/dtos/user/list";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 
 @injectable()
