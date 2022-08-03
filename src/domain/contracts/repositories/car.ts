@@ -1,15 +1,39 @@
-import { CreateCar } from "@domain/contracts/dtos/car/create-car";
-import { ListCars } from "@domain/contracts/dtos/car/list-cars";
-import { UpdateCar } from "@domain/contracts/dtos/car/update-car";
-
 import { Car } from "@infra/typeorm/entities/car";
+import { Specification } from "@infra/typeorm/entities/specification";
+
+type CreateParameters = {
+  categoryId: string;
+  name: string;
+  description: string;
+  dailyRate: number;
+  available?: boolean;
+  licensePlate: string;
+  fineAmount: number;
+  brand: string;
+};
+
+type UpdateParameters = CreateParameters & {
+  id: string;
+  specifications?: Specification[];
+};
+
+type ListFilters = {
+  categoryId?: string;
+  brand?: string;
+  name?: string;
+  available?: boolean;
+};
 
 interface ICarRepository {
-  create(parameters: CreateCar.Input): CreateCar.Output;
-  update(user: UpdateCar.Input): UpdateCar.Output;
-  list(filters?: ListCars.Input): ListCars.Output;
+  create(data: CreateParameters): Promise<Car>;
+
+  update(data: UpdateParameters): Promise<void>;
+
+  list(filters?: ListFilters): Promise<Car[]>;
+
   findByLicensePlate(licensePlate: string): Promise<Car>;
+
   findById(id: string): Promise<Car>;
 }
 
-export { ICarRepository };
+export { ICarRepository, CreateParameters, UpdateParameters, ListFilters };

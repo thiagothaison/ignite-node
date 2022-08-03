@@ -1,7 +1,12 @@
 import { inject, injectable } from "tsyringe";
 import { DataSource, Repository } from "typeorm";
 
-import { ICarRepository } from "@domain/contracts/repositories/car";
+import {
+  CreateParameters,
+  ICarRepository,
+  ListFilters,
+  UpdateParameters,
+} from "@domain/contracts/repositories/car";
 
 import { Car } from "@infra/typeorm/entities/car";
 
@@ -13,17 +18,19 @@ class CarRepository implements ICarRepository {
     this.repository = this.dataSource.getRepository(Car);
   }
 
-  async create(parameters) {
-    const car = this.repository.create(parameters);
+  async create(data: CreateParameters) {
+    const car = this.repository.create(data);
 
     await this.repository.save(car);
+
+    return car;
   }
 
-  async update(car) {
-    await this.repository.save(car);
+  async update(data: UpdateParameters) {
+    await this.repository.save(data);
   }
 
-  async list(filters) {
+  async list(filters: ListFilters) {
     const cars = await this.repository.find({ where: filters });
 
     return cars;
