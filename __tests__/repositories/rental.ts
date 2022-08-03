@@ -1,6 +1,10 @@
 import { v4 as uuidV4 } from "uuid";
 
-import { IRentalRepository } from "@domain/contracts/repositories/rental";
+import {
+  CreateParameters,
+  IRentalRepository,
+  ListFilters,
+} from "@domain/contracts/repositories/rental";
 
 import { Rental } from "@infra/typeorm/entities/rental";
 
@@ -11,18 +15,20 @@ class RentalRepository implements IRentalRepository {
     this.rentals = [];
   }
 
-  async create(parameters) {
+  async create(data: CreateParameters) {
     const rental = new Rental();
 
-    Object.assign(rental, { ...parameters, id: uuidV4() });
+    Object.assign(rental, { id: uuidV4(), ...data });
 
     this.rentals.push(rental);
 
     return rental;
   }
 
-  async list(filters) {
+  async list(filters: ListFilters) {
     return this.rentals.filter((rental) => {
+      if (!filters) return true;
+
       let passed = true;
 
       Object.keys(filters).forEach((key) => {

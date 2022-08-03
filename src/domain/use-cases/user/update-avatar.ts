@@ -1,16 +1,19 @@
 import { inject, injectable } from "tsyringe";
 
-import { UpdateAvatar } from "@domain/contracts/dtos/user/update-avatar";
 import { IUserRepository } from "@domain/contracts/repositories/user";
-import { deleteFile } from "@domain/utils/file";
+import {
+  IUpdateUserAvatarUseCase,
+  Input,
+} from "@domain/contracts/use-cases/user/update-avatar";
+import { deleteFile } from "@domain/helpers/file";
 
 @injectable()
-class UpdateUserAvatarUseCase {
+class UpdateUserAvatarUseCase implements IUpdateUserAvatarUseCase {
   constructor(
     @inject("UserRepository") private userRepository: IUserRepository
   ) {}
 
-  async execute({ user, avatar }: UpdateAvatar.Input): UpdateAvatar.Output {
+  async execute({ user, avatar }: Input) {
     const oldAvatar = user.avatar;
 
     user.avatar = avatar;

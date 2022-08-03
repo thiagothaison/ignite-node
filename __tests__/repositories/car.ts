@@ -1,6 +1,11 @@
 import { v4 as uuidV4 } from "uuid";
 
-import { ICarRepository } from "@domain/contracts/repositories/car";
+import {
+  CreateParameters,
+  ICarRepository,
+  ListFilters,
+  UpdateParameters,
+} from "@domain/contracts/repositories/car";
 
 import { Car } from "@infra/typeorm/entities/car";
 
@@ -11,26 +16,30 @@ class CarRepository implements ICarRepository {
     this.cars = [];
   }
 
-  async create(parameters) {
+  async create(data: CreateParameters) {
     const car = new Car();
 
     Object.assign(car, {
       available: true,
-      ...parameters,
+      ...data,
       id: uuidV4(),
     });
 
     this.cars.push(car);
+
+    return car;
   }
 
-  async update(car) {
+  async update(data: UpdateParameters) {
     this.cars = this.cars.map((currentCar) =>
-      currentCar.id === car.id ? currentCar : car
+      currentCar.id === data.id ? currentCar : (data as Car)
     );
   }
 
-  async list(filters) {
+  async list(filters: ListFilters) {
     return this.cars.filter((car) => {
+      if (!filters) return true;
+
       let passed = true;
 
       Object.keys(filters).forEach((key) => {

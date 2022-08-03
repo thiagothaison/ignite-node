@@ -1,14 +1,28 @@
-import { CreateRental } from "@domain/contracts/dtos/rental/create";
-import { ListRentals } from "@domain/contracts/dtos/rental/list";
-
 import { Rental } from "@infra/typeorm/entities/rental";
 
+type CreateParameters = {
+  carId: string;
+  userId: string;
+  startAt?: Date;
+  endAt?: Date;
+  expectedEndAt: Date;
+  total?: number;
+};
+
+type ListFilters = {
+  carId?: string;
+  userId?: string;
+  startAt?: Date;
+  endAt?: Date;
+  expectedEndAt?: Date;
+};
+
 interface IRentalRepository {
-  create(parameters: CreateRental.Input): CreateRental.Output;
-  list(filters: ListRentals.Input): ListRentals.Output;
+  create(data: CreateParameters): Promise<Rental>;
+  list(filters: ListFilters): Promise<Rental[]>;
   findById(id: string): Promise<Rental>;
   findOpenRentalByCar(carId: string): Promise<Rental>;
   findOpenRentalByUser(userId: string): Promise<Rental>;
 }
 
-export { IRentalRepository };
+export { CreateParameters, IRentalRepository, ListFilters };

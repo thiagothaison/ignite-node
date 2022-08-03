@@ -1,8 +1,8 @@
 import { Router } from "express";
 
 import { AddSpecificationController } from "@application/controllers/car/add-specification";
-import { CreateCarController } from "@application/controllers/car/create-car";
-import { ListCarsController } from "@application/controllers/car/list-cars";
+import { CreateCarController } from "@application/controllers/car/create";
+import { ListCarsController } from "@application/controllers/car/list";
 
 import { isAdmin } from "@infra/http/middlewares/is-admin";
 

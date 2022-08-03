@@ -1,7 +1,10 @@
 import { inject, injectable } from "tsyringe";
 import { DataSource, Repository } from "typeorm";
 
-import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
+import {
+  CreateParameters,
+  ISpecificationRepository,
+} from "@domain/contracts/repositories/specification";
 
 import { Specification } from "@infra/typeorm/entities/specification";
 
@@ -16,10 +19,12 @@ class SpecificationRepository implements ISpecificationRepository {
     this.repository = this.dataSource.getRepository(Specification);
   }
 
-  async create(parameters) {
-    const specification = this.repository.create(parameters);
+  async create(data: CreateParameters) {
+    const specification = this.repository.create(data);
 
     await this.repository.save(specification);
+
+    return specification;
   }
 
   async list() {

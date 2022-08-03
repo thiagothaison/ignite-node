@@ -1,13 +1,15 @@
-import { CreateSpecification } from "@domain/contracts/dtos/specification/create-specification";
-import { ListSpecifications } from "@domain/contracts/dtos/specification/list-specifications";
-
 import { Specification } from "@infra/typeorm/entities/specification";
 
+type CreateParameters = {
+  name: string;
+  description: string;
+};
+
 interface ISpecificationRepository {
-  create(parameters: CreateSpecification.Input): CreateSpecification.Output;
-  list(): ListSpecifications.Output;
+  create(data: CreateParameters): Promise<Specification>;
+  list(): Promise<Specification[]>;
   findByName(name: string): Promise<Specification>;
   findById(id: string): Promise<Specification>;
 }
 
-export { ISpecificationRepository };
+export { CreateParameters, ISpecificationRepository };

@@ -1,5 +1,5 @@
 import { IUserRepository } from "@domain/contracts/repositories/user";
-import { ListUserUseCase } from "@domain/use-cases/user/list-users";
+import { ListUserUseCase } from "@domain/use-cases/user/list";
 
 import { UserRepository } from "@tests/repositories/user";
 

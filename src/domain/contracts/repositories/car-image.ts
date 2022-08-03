@@ -1,7 +1,7 @@
-import { CreateCarImage } from "@domain/contracts/dtos/car-image/create-car-image";
+type CreateParameters = { carId: string; image: string };
 
 interface ICarImageRepository {
-  create(parameters: CreateCarImage.Input): CreateCarImage.Output;
+  create(data: CreateParameters): Promise<void>;
 }
 
-export { ICarImageRepository };
+export { ICarImageRepository, CreateParameters };

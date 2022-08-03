@@ -1,7 +1,10 @@
 import { inject, injectable } from "tsyringe";
 import { DataSource, Repository } from "typeorm";
 
-import { ICategoryRepository } from "@domain/contracts/repositories/category";
+import {
+  CreateParameters,
+  ICategoryRepository,
+} from "@domain/contracts/repositories/category";
 
 import { Category } from "@infra/typeorm/entities/category";
 
@@ -16,10 +19,12 @@ class CategoryRepository implements ICategoryRepository {
     this.repository = this.dataSource.getRepository(Category);
   }
 
-  async create(parameters) {
-    const category = this.repository.create(parameters);
+  async create(data: CreateParameters) {
+    const category = this.repository.create(data);
 
     await this.repository.save(category);
+
+    return category;
   }
 
   async list() {

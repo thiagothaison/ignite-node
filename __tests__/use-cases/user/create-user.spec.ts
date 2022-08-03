@@ -1,6 +1,6 @@
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { AppError } from "@domain/errors/app-error";
-import { CreateUserUseCase } from "@domain/use-cases/user/create-user";
+import { CreateUserUseCase } from "@domain/use-cases/user/create";
 
 import { UserRepository } from "@tests/repositories/user";
 

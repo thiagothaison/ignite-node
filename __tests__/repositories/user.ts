@@ -1,7 +1,11 @@
 import { hashSync } from "bcryptjs";
 import { v4 as uuidV4 } from "uuid";
 
-import { IUserRepository } from "@domain/contracts/repositories/user";
+import {
+  CreateParameters,
+  IUserRepository,
+  UpdateParameters,
+} from "@domain/contracts/repositories/user";
 
 import { User } from "@infra/typeorm/entities/user";
 
@@ -12,22 +16,28 @@ class UserRepository implements IUserRepository {
     this.users = [];
   }
 
-  async create(parameters) {
+  async create(data: CreateParameters) {
     const user = new User();
 
     Object.assign(user, {
-      ...parameters,
+      ...data,
       id: uuidV4(),
-      password: hashSync(parameters.password, process.env.APP_ENV || 8),
+      password: hashSync(data.password, process.env.APP_ENV || 8),
     });
 
     this.users.push(user);
+
+    return user;
   }
 
-  async update(user) {
+  async update(data: UpdateParameters) {
     this.users = this.users.map((currentUser) =>
-      currentUser.id === user.id ? currentUser : user
+      currentUser.id === data.id ? currentUser : (data as User)
     );
+
+    const user = await this.findById(data.id);
+
+    return user;
   }
 
   async list() {

@@ -1,6 +1,6 @@
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
 import { AppError } from "@domain/errors/app-error";
-import { CreateCategoryUseCase } from "@domain/use-cases/category/create-category";
+import { CreateCategoryUseCase } from "@domain/use-cases/category/create";
 
 import { CategoryRepository } from "@tests/repositories/category";
 

@@ -5,7 +5,7 @@ import { ICarRepository } from "@domain/contracts/repositories/car";
 import { IRentalRepository } from "@domain/contracts/repositories/rental";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { AppError } from "@domain/errors/app-error";
-import { CreateRentalUseCase } from "@domain/use-cases/rental/create-rental";
+import { CreateRentalUseCase } from "@domain/use-cases/rental/create";
 
 import { CarRepository } from "@tests/repositories/car";
 import { RentalRepository } from "@tests/repositories/rental";
@@ -37,7 +37,7 @@ describe("Create rental", () => {
   const createCar = async () => {
     const licensePlate = "BTU-2022";
 
-    await carRepository.create({
+    const car = await carRepository.create({
       brand: "Renault",
       dailyRate: 100,
       name: "Fluence",
@@ -47,23 +47,19 @@ describe("Create rental", () => {
       categoryId: "uuu",
     });
 
-    const car = await carRepository.findByLicensePlate(licensePlate);
-
     return car;
   };
 
   const createUser = async () => {
     const email = "user@domain.com";
 
-    await userRepository.create({
+    const user = await userRepository.create({
       name: "John Doe",
       email,
       password: "1a2b3c!@",
       isAdmin: false,
       driverLicense: "00000000123",
     });
-
-    const user = await userRepository.findByEmail("user@domain.com");
 
     return user;
   };
