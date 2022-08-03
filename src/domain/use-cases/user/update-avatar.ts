@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { UpdateAvatar } from "@domain/contracts/dtos/user/update-avatar";
 import { IUserRepository } from "@domain/contracts/repositories/user";
-import { deleteFile } from "@domain/utils/file";
+import { deleteFile } from "@domain/helpers/file";
 
 @injectable()
 class UpdateUserAvatarUseCase {
