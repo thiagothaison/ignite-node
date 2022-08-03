@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { CreateCarImageUseCase } from "@domain/use-cases/car-image/create-car-images";
+import { CreateCarImageUseCase } from "@domain/use-cases/car-image/create";
 
 class CreateCarImageController {
   async handle(request: Request, response: Response): Promise<Response> {

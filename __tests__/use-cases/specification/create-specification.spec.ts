@@ -1,6 +1,6 @@
 import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
 import { AppError } from "@domain/errors/app-error";
-import { CreateSpecificationUseCase } from "@domain/use-cases/specification/create-specification";
+import { CreateSpecificationUseCase } from "@domain/use-cases/specification/create";
 
 import { SpecificationRepository } from "@tests/repositories/specification";
 

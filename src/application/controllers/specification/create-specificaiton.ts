@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { CreateSpecificationUseCase } from "@domain/use-cases/specification/create-specification";
+import { CreateSpecificationUseCase } from "@domain/use-cases/specification/create";
 
 class CreateSpecificationController {
   async handle(request: Request, response: Response): Promise<Response> {

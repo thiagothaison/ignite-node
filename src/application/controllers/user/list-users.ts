@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { ListUserUseCase } from "@domain/use-cases/user/list-users";
+import { ListUserUseCase } from "@domain/use-cases/user/list";
 
 class ListUserController {
   async handle(request: Request, response: Response): Promise<Response> {

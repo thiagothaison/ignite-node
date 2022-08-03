@@ -1,5 +1,5 @@
 import { ICarRepository } from "@domain/contracts/repositories/car";
-import { ListCarsUseCase } from "@domain/use-cases/car/list-cars";
+import { ListCarsUseCase } from "@domain/use-cases/car/list";
 
 import { CarRepository } from "@tests/repositories/car";
 

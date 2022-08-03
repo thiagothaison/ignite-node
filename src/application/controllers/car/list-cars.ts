@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { onlyQuery } from "@application/helpers/only-query";
 
-import { ListCarsUseCase } from "@domain/use-cases/car/list-cars";
+import { ListCarsUseCase } from "@domain/use-cases/car/list";
 
 class ListCarsController {
   async handle(request: Request, response: Response): Promise<Response> {

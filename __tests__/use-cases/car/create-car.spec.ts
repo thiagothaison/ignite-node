@@ -1,6 +1,6 @@
 import { ICarRepository } from "@domain/contracts/repositories/car";
 import { AppError } from "@domain/errors/app-error";
-import { CreateCarUseCase } from "@domain/use-cases/car/create-car";
+import { CreateCarUseCase } from "@domain/use-cases/car/create";
 
 import { CarRepository } from "@tests/repositories/car";
 

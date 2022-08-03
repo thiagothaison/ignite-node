@@ -1,5 +1,5 @@
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
-import { ListCategoriesUseCase } from "@domain/use-cases/category/list-categories";
+import { ListCategoriesUseCase } from "@domain/use-cases/category/list";
 
 import { CategoryRepository } from "@tests/repositories/category";
 

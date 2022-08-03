@@ -5,7 +5,7 @@ import { ICarRepository } from "@domain/contracts/repositories/car";
 import { IRentalRepository } from "@domain/contracts/repositories/rental";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { AppError } from "@domain/errors/app-error";
-import { CreateRentalUseCase } from "@domain/use-cases/rental/create-rental";
+import { CreateRentalUseCase } from "@domain/use-cases/rental/create";
 
 import { CarRepository } from "@tests/repositories/car";
 import { RentalRepository } from "@tests/repositories/rental";

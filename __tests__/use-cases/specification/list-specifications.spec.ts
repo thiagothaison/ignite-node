@@ -1,5 +1,5 @@
 import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
-import { ListSpecificationsUseCase } from "@domain/use-cases/specification/list-specifications";
+import { ListSpecificationsUseCase } from "@domain/use-cases/specification/list";
 
 import { SpecificationRepository } from "@tests/repositories/specification";
 
