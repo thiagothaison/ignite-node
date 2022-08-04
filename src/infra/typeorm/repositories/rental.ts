@@ -27,7 +27,10 @@ class RentalRepository implements IRentalRepository {
   }
 
   async list(filters: ListFilters) {
-    const rentals = await this.repository.find({ where: filters });
+    const rentals = await this.repository.find({
+      where: filters,
+      relations: ["car"],
+    });
 
     return rentals;
   }

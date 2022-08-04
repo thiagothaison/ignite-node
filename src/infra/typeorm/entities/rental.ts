@@ -1,6 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 import BaseEntity from "./base-entity";
+import { Car } from "./car";
 
 @Entity("rentals")
 class Rental extends BaseEntity {
@@ -21,6 +22,10 @@ class Rental extends BaseEntity {
 
   @Column()
   total: number;
+
+  @ManyToOne(() => Car)
+  @JoinColumn({ name: "car_id" })
+  car?: Car;
 }
 
 export { Rental };
