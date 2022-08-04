@@ -226,6 +226,44 @@
           }
         }        
       }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Set car images",
+        "description": "Set car images",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "car identification",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/car/set-images"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Token is not provided"
+          }
+        }        
+      }
     }
   },
   "definitions": {
@@ -391,6 +429,17 @@
             "d8462bd1-edaa-4508-9917-9d72596fca81",
             "d8462bd1-edaa-4508-9917-9d72596fca82"
           ]
+        }
+      },
+      "set-images": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "file"
+            }
+          }
         }
       }
     }
