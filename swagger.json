@@ -18,12 +18,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "file"
-                  }
-                }
+                "$ref": "#/definitions/category/import"
               }
             }
           }
@@ -44,19 +39,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "name": "Category name sample",
-                  "description": "Category description sample"
-                }
+                "$ref": "#/definitions/category/create"
               }
             }
           }
@@ -80,18 +63,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/definitions/category/list"
                 }
               }
             }
@@ -108,19 +80,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "name": "Specification name sample",
-                  "description": "Specification description sample"
-                }
+                "$ref": "#/definitions/specification/create"
               }
             }
           }
@@ -144,22 +104,83 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/definitions/specification/list"
                 }
               }
             }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "category": {
+      "import": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "file"
+          }
+        }
+      },
+      "list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Category name sample",
+          "description": "Category description sample"
+        }
+      }
+    },
+    "specification": {
+      "list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Specification name sample",
+          "description": "Specification description sample"
         }
       }
     }
