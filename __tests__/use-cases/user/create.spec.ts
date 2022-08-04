@@ -36,10 +36,10 @@ describe("Create user", () => {
   });
 
   it("Should not be able to create a new user with existing email", async () => {
-    return expect(async () => {
-      await createUser();
+    const user = await createUser();
 
-      await createUser();
-    }).rejects.toBeInstanceOf(AppError);
+    await expect(createUser()).rejects.toEqual(
+      new AppError(`O usuário ${user.email} já existe`, 409)
+    );
   });
 });

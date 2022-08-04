@@ -41,25 +41,25 @@ describe("Authenticate User", () => {
     expect(result).toHaveProperty("token");
   });
 
-  it("Should not be able to authenticate an user with wrong password", () => {
-    return expect(async () => {
-      const user = await createUser();
+  it("Should not be able to authenticate an user with wrong password", async () => {
+    const user = await createUser();
 
-      await authenticateUserUseCase.execute({
+    await expect(
+      authenticateUserUseCase.execute({
         email: user.email,
         password: "wrong-password",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Usuário ou senha inválido", 422));
   });
 
-  it("Should not be able to authenticate an user with wrong email", () => {
-    return expect(async () => {
-      await createUser();
+  it("Should not be able to authenticate an user with wrong email", async () => {
+    await createUser();
 
-      await authenticateUserUseCase.execute({
+    await expect(
+      authenticateUserUseCase.execute({
         email: "wrong@email.com",
         password: "wrong-password",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Usuário ou senha inválido", 422));
   });
 });

@@ -25,19 +25,19 @@ describe("Create an category", () => {
     expect(category).toHaveProperty("id");
   });
 
-  it("Should not be able to create a new category with existing name", () => {
-    expect(async () => {
-      const name = "Duplicated";
+  it("Should not be able to create a new category with existing name", async () => {
+    const name = "Duplicated";
 
-      await createCategoryUseCase.execute({
+    await createCategoryUseCase.execute({
+      name,
+      description: "This is a description",
+    });
+
+    await expect(
+      createCategoryUseCase.execute({
         name,
         description: "This is a description",
-      });
-
-      await createCategoryUseCase.execute({
-        name,
-        description: "This is a description",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError(`A categoria ${name} já existe.`, 409));
   });
 });

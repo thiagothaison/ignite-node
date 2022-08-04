@@ -75,40 +75,40 @@ describe("Create rental", () => {
     return rental;
   };
 
-  it("Should not be able to finalize an non-existent rental", () => {
-    return expect(async () => {
-      await finalizeRentalUseCase.execute({
+  it("Should not be able to finalize an non-existent rental", async () => {
+    await expect(
+      finalizeRentalUseCase.execute({
         id: "fake-id",
         userId: "fake-user-id",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Rental does not exists"));
   });
 
-  it("Should not be able to finalize an rental already finished", () => {
-    return expect(async () => {
-      const { id: rentalId, userId } = await createRental();
+  it("Should not be able to finalize an rental already finished", async () => {
+    const { id: rentalId, userId } = await createRental();
 
-      await finalizeRentalUseCase.execute({
+    await finalizeRentalUseCase.execute({
+      id: rentalId,
+      userId,
+    });
+
+    await expect(
+      finalizeRentalUseCase.execute({
         id: rentalId,
         userId,
-      });
-
-      await finalizeRentalUseCase.execute({
-        id: rentalId,
-        userId,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Rental already is finished"));
   });
 
-  it("Should not be able to finalize an rental for another user", () => {
-    return expect(async () => {
-      const { id: rentalId } = await createRental();
+  it("Should not be able to finalize an rental for another user", async () => {
+    const { id: rentalId } = await createRental();
 
-      await finalizeRentalUseCase.execute({
+    await expect(
+      finalizeRentalUseCase.execute({
         id: rentalId,
         userId: "fake-another-user-id",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("This rental is invalid", 401));
   });
 
   it("Should be able to finalize an existent rental", async () => {

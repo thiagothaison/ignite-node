@@ -27,18 +27,18 @@ describe("Create an specification", () => {
     expect(specification).toHaveProperty("id");
   });
 
-  it("Should not be able to create a new specification with existing name", () => {
-    return expect(async () => {
-      const name = "Duplicated";
-      await createSpecificationUseCase.execute({
-        name,
-        description: "This is a test",
-      });
+  it("Should not be able to create a new specification with existing name", async () => {
+    const name = "Duplicated";
+    await createSpecificationUseCase.execute({
+      name,
+      description: "This is a test",
+    });
 
-      await createSpecificationUseCase.execute({
+    await expect(
+      createSpecificationUseCase.execute({
         name,
         description: "This is a test",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError(`A especificação ${name} já existe.`, 409));
   });
 });

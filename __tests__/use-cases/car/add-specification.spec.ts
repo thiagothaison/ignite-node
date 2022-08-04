@@ -45,29 +45,30 @@ describe("Add specification", () => {
     return specification;
   };
 
-  it("Should not be able to add a new specification to non-existent car", () => {
-    return expect(async () => {
-      const carId = "fake-car-id";
-      const specificationIds = [
-        "fake-specification-id",
-        "another-fake-specification-id",
-      ];
+  it("Should not be able to add a new specification to non-existent car", async () => {
+    const carId = "fake-car-id";
+    const specificationIds = [
+      "fake-specification-id",
+      "another-fake-specification-id",
+    ];
 
-      await addSpecificationUseCase.execute({ carId, specificationIds });
-    }).rejects.toBeInstanceOf(AppError);
+    await expect(
+      addSpecificationUseCase.execute({ carId, specificationIds })
+    ).rejects.toEqual(new AppError("Car does not exists", 400));
   });
 
-  it("Should not be able to add a non-existent specification to car", () => {
-    return expect(async () => {
-      const car = await createCar();
+  it("Should not be able to add a non-existent specification to car", async () => {
+    const car = await createCar();
+    const specificationIds = ["fake-specification-id"];
 
-      const specificationIds = ["fake-specification-id"];
-
-      await addSpecificationUseCase.execute({
+    await expect(
+      addSpecificationUseCase.execute({
         carId: car.id,
         specificationIds,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(
+      new AppError("Specification fake-specification-id does not exists", 400)
+    );
   });
 
   it("Should be able to add a new specification to car", async () => {

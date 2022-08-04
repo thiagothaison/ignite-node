@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 import { IDateProvider } from "@domain/contracts/providers/date-provider";
 import { ICarRepository } from "@domain/contracts/repositories/car";
 import { IRentalRepository } from "@domain/contracts/repositories/rental";
@@ -64,26 +62,26 @@ describe("Create rental", () => {
     return user;
   };
 
-  it("Should not be able to create a new rental for non-existent car", () => {
-    return expect(async () => {
-      await createRentalUseCase.execute({
+  it("Should not be able to create a new rental for non-existent car", async () => {
+    await expect(
+      createRentalUseCase.execute({
         userId: "fake-user-id",
         carId: "fake-car-id",
         expectedEndAt: dayJsProvider.tomorrow(),
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Car fake-car-id does not exists", 409));
   });
 
-  it("Should not be able to create a new rental for non-existent user", () => {
-    return expect(async () => {
-      const car = await createCar();
+  it("Should not be able to create a new rental for non-existent user", async () => {
+    const car = await createCar();
 
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         userId: "fake-user-id",
         carId: car.id,
         expectedEndAt: dayJsProvider.tomorrow(),
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("User fake-user-id does not exists", 409));
   });
 
   it("Should be able to create a new rental", async () => {
@@ -102,58 +100,62 @@ describe("Create rental", () => {
     expect(rentalCar.available).toBe(false);
   });
 
-  it("Should not be able to create a new rental if there is another to the same car", () => {
-    return expect(async () => {
-      const user = await createUser();
-      const car = await createCar();
+  it("Should not be able to create a new rental if there is another to the same car", async () => {
+    const user = await createUser();
+    const car = await createCar();
 
-      await createRentalUseCase.execute({
-        userId: user.id,
-        carId: car.id,
-        expectedEndAt: dayJsProvider.tomorrow(),
-      });
+    await createRentalUseCase.execute({
+      userId: user.id,
+      carId: car.id,
+      expectedEndAt: dayJsProvider.tomorrow(),
+    });
 
-      const anotherUser = await createUser();
+    const anotherUser = await createUser();
 
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         userId: anotherUser.id,
         carId: car.id,
         expectedEndAt: dayJsProvider.tomorrow(),
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(
+      new AppError(`Rental for car ${car.id} already exists`, 409)
+    );
   });
 
-  it("Should not be able to create a new rental if there is another to the same user", () => {
-    return expect(async () => {
-      const car = await createCar();
-      const user = await createUser();
+  it("Should not be able to create a new rental if there is another to the same user", async () => {
+    const car = await createCar();
+    const user = await createUser();
 
-      await createRentalUseCase.execute({
-        userId: user.id,
-        carId: car.id,
-        expectedEndAt: dayJsProvider.tomorrow(),
-      });
+    await createRentalUseCase.execute({
+      userId: user.id,
+      carId: car.id,
+      expectedEndAt: dayJsProvider.tomorrow(),
+    });
 
-      const anotherCar = await createCar();
+    const anotherCar = await createCar();
 
-      await createRentalUseCase.execute({
+    return expect(
+      createRentalUseCase.execute({
         userId: user.id,
         carId: anotherCar.id,
         expectedEndAt: dayJsProvider.tomorrow(),
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(
+      new AppError("There's a rental in progress for user", 409)
+    );
   });
 
-  it("Should not be able to create a new rental with invalid return time", () => {
-    return expect(async () => {
-      const car = await createCar();
-      const user = await createUser();
+  it("Should not be able to create a new rental with invalid return time", async () => {
+    const car = await createCar();
+    const user = await createUser();
 
-      await createRentalUseCase.execute({
+    await expect(
+      createRentalUseCase.execute({
         userId: user.id,
         carId: car.id,
         expectedEndAt: dayJsProvider.now(),
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Invalid return time"));
   });
 });

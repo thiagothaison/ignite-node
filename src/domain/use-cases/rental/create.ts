@@ -32,7 +32,7 @@ class CreateRentalUseCase implements ICreateRentalUseCase {
     const user = await this.userRepository.findById(userId);
 
     if (!user) {
-      throw new AppError(`Car ${userId} does not exists`, 409);
+      throw new AppError(`User ${userId} does not exists`, 409);
     }
 
     const isCarUnavailable = await this.rentalRepository.findOpenRentalByCar(

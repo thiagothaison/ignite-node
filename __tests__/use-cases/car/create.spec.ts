@@ -37,12 +37,12 @@ describe("Create car", () => {
     expect(car).toHaveProperty("id");
   });
 
-  it("Should not be able to create a new car with existing license plate", () => {
-    expect(async () => {
-      await createCar();
+  it("Should not be able to create a new car with existing license plate", async () => {
+    const car = await createCar();
 
-      await createCar();
-    }).rejects.toBeInstanceOf(AppError);
+    await expect(createCar()).rejects.toEqual(
+      new AppError(`O carro com a placa ${car.licensePlate} já existe`, 409)
+    );
   });
 
   it("Should be able to create a car with available true as default", async () => {
