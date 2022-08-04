@@ -3,7 +3,7 @@ import "./src/application/config/dotenv";
 import { DataSourceOptions } from "typeorm";
 import { SeederOptions } from "typeorm-extension";
 
-const dataSourceOptions: DataSourceOptions & SeederOptions = {
+const dataSourceProductionOptions: DataSourceOptions & SeederOptions = {
   type: "postgres",
   host: process.env.DB_HOST || "localhost",
   port: +process.env.DB_PORT || 5432,
@@ -17,4 +17,13 @@ const dataSourceOptions: DataSourceOptions & SeederOptions = {
   factories: ["src/infra/typeorm/factories/*.factory.ts"],
 };
 
-export default dataSourceOptions;
+const dataSourceTestOptions = {
+  ...dataSourceProductionOptions,
+  database: `${dataSourceProductionOptions.database}_test`,
+  logging: false,
+  dropSchema: true,
+};
+
+export default process.env.NODE_ENV === "test"
+  ? dataSourceTestOptions
+  : dataSourceProductionOptions;
