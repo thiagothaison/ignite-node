@@ -188,6 +188,44 @@
           }
         }        
       }
+    },
+    "/cars/specifications/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Set car specifications",
+        "description": "Set car specifications",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "car identification",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/car/set-specification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Token is not provided"
+          }
+        }        
+      }
     }
   },
   "definitions": {
@@ -336,6 +374,23 @@
           "fineAmount": 60,
           "licensePlate": "BRA-0I23",
           "brand": "Renault"
+        }
+      },
+      "set-specification": {
+        "type": "object",
+        "properties": {
+          "specificationIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "specificationIds": [
+            "d8462bd1-edaa-4508-9917-9d72596fca81",
+            "d8462bd1-edaa-4508-9917-9d72596fca82"
+          ]
         }
       }
     }
