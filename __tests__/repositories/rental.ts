@@ -2,6 +2,7 @@ import { v4 as uuidV4 } from "uuid";
 
 import {
   CreateParameters,
+  FinalizeParameters,
   IRentalRepository,
   ListFilters,
 } from "@domain/contracts/repositories/rental";
@@ -55,6 +56,18 @@ class RentalRepository implements IRentalRepository {
     return this.rentals.find(
       (rental) => rental.userId === userId && !rental.endAt
     );
+  }
+
+  async finalize({ id, endAt, total }: FinalizeParameters) {
+    const rental = await this.findById(id);
+    rental.endAt = endAt;
+    rental.total = total;
+
+    this.rentals = this.rentals.map((currentRental) =>
+      currentRental.id === id ? rental : currentRental
+    );
+
+    return rental;
   }
 }
 
