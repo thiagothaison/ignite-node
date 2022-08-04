@@ -9,31 +9,30 @@
     }
   },
   "paths": {
-    "/categories/import": {
-      "post": {
+    "/categories": {
+      "get": {
         "tags": ["Category"],
-        "summary": "import a csv file that contains a list of categories",
-        "description": "import a csv file that contains a list of categories",
+        "summary": "List all categories",
+        "description": "List all categories",
         "security": [{
           "bearerAuth": []
         }],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/definitions/category/import"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/category/list"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token is not provided"
           }
         }
-      }
-    },
-    "/categories": {
+      },
       "post": {
         "tags": ["Category"],
         "summary": "Create a category",
@@ -54,30 +53,63 @@
           "201": {
             "description": "Created"
           },
-          "500": {
+          "409": {
             "description": "Category already exists "
+          },
+          "401": {
+            "description": "Token is not provided"
           }
         }
-      },
-      "get": {
+      }
+    },
+    "/categories/import": {
+      "post": {
         "tags": ["Category"],
-        "summary": "List all categories",
-        "description": "List all categories",
+        "summary": "import a csv file that contains a list of categories",
+        "description": "import a csv file that contains a list of categories",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/category/import"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Token is not provided"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "get": {
+        "tags": ["Specifications"],
+        "summary": "List all specifications",
+        "description": "List all specifications",
+        "security": [{
+          "bearerAuth": []
+        }],
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/category/list"
+                  "$ref": "#/definitions/specification/list"
                 }
               }
             }
           }
         }
-      }
-    },
-    "/specifications": {
+      },
       "post": {
         "tags": ["Specifications"],
         "summary": "Create a specification",
@@ -98,25 +130,11 @@
           "201": {
             "description": "Created"
           },
-          "500": {
-            "description": "Category already exists "
-          }
-        }
-      },
-      "get": {
-        "tags": ["Specifications"],
-        "summary": "List all specifications",
-        "description": "List all specifications",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/definitions/specification/list"
-                }
-              }
-            }
+          "409": {
+            "description": "Category already exists"
+          },
+          "401": {
+            "description": "Token is not provided"
           }
         }
       }
