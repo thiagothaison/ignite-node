@@ -17,12 +17,19 @@ type ListFilters = {
   expectedEndAt?: Date;
 };
 
+type FinalizeParameters = {
+  id: string;
+  endAt: Date;
+  total: number;
+};
+
 interface IRentalRepository {
   create(data: CreateParameters): Promise<Rental>;
   list(filters: ListFilters): Promise<Rental[]>;
   findById(id: string): Promise<Rental>;
   findOpenRentalByCar(carId: string): Promise<Rental>;
   findOpenRentalByUser(userId: string): Promise<Rental>;
+  finalize(data: FinalizeParameters): Promise<Rental>;
 }
 
-export { CreateParameters, IRentalRepository, ListFilters };
+export { CreateParameters, FinalizeParameters, IRentalRepository, ListFilters };

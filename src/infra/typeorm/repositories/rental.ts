@@ -3,6 +3,7 @@ import { DataSource, IsNull, Repository } from "typeorm";
 
 import {
   CreateParameters,
+  FinalizeParameters,
   IRentalRepository,
   ListFilters,
 } from "@domain/contracts/repositories/rental";
@@ -57,6 +58,20 @@ class RentalRepository implements IRentalRepository {
     });
 
     return rentalAlreadyExists;
+  }
+
+  async finalize({ id, endAt, total }: FinalizeParameters) {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ endAt, total })
+      .where("id = :id")
+      .setParameters({ id })
+      .execute();
+
+    const rental = await this.findById(id);
+
+    return rental;
   }
 }
 
