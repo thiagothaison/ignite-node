@@ -138,6 +138,56 @@
           }
         }
       }
+    },
+    "/cars": {
+      "get": {
+        "tags": ["Cars"],
+        "summary": "List all cars",
+        "description": "List all cars",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/car/list"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Create a new car",
+        "description": "Create a new car",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/car/create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Token is not provided"
+          },
+          "409": {
+            "description": "Car already exists "
+          }
+        }        
+      }
     }
   },
   "definitions": {
@@ -208,6 +258,84 @@
         "example": {
           "name": "Specification name sample",
           "description": "Specification description sample"
+        }
+      }
+    },
+    "car": {
+      "list": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "categoryId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "brand": {
+              "type": "string"
+            },
+            "dailyRate": {
+              "type": "number"
+            },
+            "available": {
+              "type": "boolean"
+            },
+            "licensePlate": {
+              "type": "string"
+            },
+            "fineAmount": {
+              "type": "number"
+            },
+            "createdAt": {
+              "type": "date"
+            }
+          }
+        }
+      },
+      "create": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "dailyRate": {
+            "type": "number"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "licensePlate": {
+            "type": "string"
+          },
+          "fineAmount": {
+            "type": "number"
+          }
+        },
+        "example": {
+          "categoryId": "3f2b9474-7123-416a-a62f-a0aad4cadfb2",
+          "name": "Fluence Dynamic AUT",
+          "description": "Branco perolado",
+          "dailyRate": 120,
+          "fineAmount": 60,
+          "licensePlate": "BRA-0I23",
+          "brand": "Renault"
         }
       }
     }
