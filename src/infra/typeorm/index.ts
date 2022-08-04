@@ -8,7 +8,9 @@ const AppDataSource = new DataSource(dataSourceOptions);
 
 AppDataSource.initialize()
   .then(async () => {
-    console.log("🔥 Successfully connected with database");
+    console.log(
+      `🔥 Successfully connected with database ${dataSourceOptions.database}`
+    );
   })
   .catch((err) => {
     console.error(
