@@ -96,7 +96,10 @@ describe("Create rental", () => {
       expectedEndAt: dayJsProvider.tomorrow(),
     });
 
+    const rentalCar = await carRepository.findById(car.id);
+
     expect(rental).toHaveProperty("id");
+    expect(rentalCar.available).toBe(false);
   });
 
   it("Should not be able to create a new rental if there is another to the same car", () => {

@@ -63,6 +63,17 @@ class CarRepository implements ICarRepository {
 
     return car;
   }
+
+  async changeAvailability(id, available = true) {
+    const car = await this.findById(id);
+    car.available = available;
+
+    this.cars = this.cars.map((currentCar) =>
+      currentCar.id === id ? car : currentCar
+    );
+
+    return car;
+  }
 }
 
 export { CarRepository };

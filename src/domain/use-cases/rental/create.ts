@@ -65,6 +65,8 @@ class CreateRentalUseCase implements ICreateRentalUseCase {
       expectedEndAt,
     });
 
+    await this.carRepository.changeAvailability(carId, false);
+
     return rental;
   }
 }

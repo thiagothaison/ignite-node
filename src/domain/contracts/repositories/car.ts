@@ -34,6 +34,8 @@ interface ICarRepository {
   findByLicensePlate(licensePlate: string): Promise<Car>;
 
   findById(id: string): Promise<Car>;
+
+  changeAvailability(id: string, available: boolean): Promise<Car>;
 }
 
 export { ICarRepository, CreateParameters, UpdateParameters, ListFilters };
