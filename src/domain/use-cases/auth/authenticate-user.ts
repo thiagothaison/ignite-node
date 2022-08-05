@@ -2,6 +2,8 @@ import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import { jwtExpiresInMinutes, jwtKey } from "@config/auth";
+
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import {
   IAuthenticateUserUseCase,
@@ -28,9 +30,9 @@ class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
       throw new AppError("Usuário ou senha inválido", 422);
     }
 
-    const token = sign({}, process.env.JWT_KEY, {
+    const token = sign({}, jwtKey, {
       subject: user.id,
-      expiresIn: "1d",
+      expiresIn: `${jwtExpiresInMinutes}m`,
     });
 
     return {
