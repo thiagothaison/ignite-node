@@ -38,6 +38,16 @@ class DayJsProvider implements IDateProvider {
 
     return baseDay.subtract(numberOfDays, "days").toDate();
   }
+
+  addHours(numberOfHours: number, date?: Date) {
+    const baseDay = dayjs(date);
+
+    if (numberOfHours > 0) {
+      return baseDay.add(numberOfHours, "hours").toDate();
+    }
+
+    return baseDay.subtract(numberOfHours, "hours").toDate();
+  }
 }
 
 export { DayJsProvider };

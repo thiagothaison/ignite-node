@@ -21,6 +21,8 @@ interface IDateProvider {
   tomorrow(): Date;
 
   addDays(numberOfDays: number, date?: Date): Date;
+
+  addHours(numberOfHours: number, date?: Date): Date;
 }
 
 export { IDateProvider };
