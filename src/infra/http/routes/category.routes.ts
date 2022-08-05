@@ -1,7 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 
-import UploadConfig from "@application/config/upload";
+import UploadConfig from "@config/upload";
+
 import { CreateCategoryController } from "@application/controllers/category/create";
 import { ImportCategoryController } from "@application/controllers/category/import";
 import { ListCategoriesController } from "@application/controllers/category/list";

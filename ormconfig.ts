@@ -1,4 +1,4 @@
-import "./src/application/config/dotenv";
+import "./src/config/dotenv";
 
 import { DataSourceOptions } from "typeorm";
 import { SeederOptions } from "typeorm-extension";

@@ -59,6 +59,7 @@
                     "/^@dataSourceOptions/",
                     "/^@swaggerFile/",
                     "module",
+                    "/^@config/",
                     "/^@application/",
                     "/^@domain/",
                     "/^@tests/",

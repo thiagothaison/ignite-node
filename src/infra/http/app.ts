@@ -1,4 +1,4 @@
-import "@application/config/dotenv";
+import "@config/dotenv";
 import "@infra/tsyringe/container";
 
 import swaggerFile from "@swaggerFile";
