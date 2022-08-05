@@ -26,10 +26,15 @@ class UserTokenRepository implements IUserTokenRepository {
 
   async findByToken(token: string, type: Type) {
     const userToken = await this.repository.findOne({
-      where: { token },
+      where: { token, type },
+      relations: ["user"],
     });
 
     return userToken;
+  }
+
+  async deleteById(id: string) {
+    await this.repository.delete(id);
   }
 }
 
