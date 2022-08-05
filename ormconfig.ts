@@ -10,7 +10,7 @@ const dataSourceProductionOptions: DataSourceOptions & SeederOptions = {
   username: process.env.DB_USERNAME || "test",
   password: process.env.DB_PASSWORD || "test",
   database: process.env.DB_DATABASE || "test",
-  logging: !!process.env.DB_LOGGING || false,
+  logging: process.env.DB_LOGGING === "true",
   migrations: ["src/infra/typeorm/migrations/*.ts"],
   entities: ["src/infra/typeorm/entities/*.ts"],
   seeds: ["src/infra/typeorm/seeds/*.seeder.ts"],
