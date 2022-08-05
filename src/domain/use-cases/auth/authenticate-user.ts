@@ -18,6 +18,8 @@ import {
 } from "@domain/contracts/use-cases/auth/authenticate-user";
 import { AppError } from "@domain/errors/app-error";
 
+import { Type } from "@infra/typeorm/entities/user-token";
+
 @injectable()
 class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
   constructor(
@@ -64,8 +66,9 @@ class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
 
     await this.userTokenRepository.create({
       userId: user.id,
-      refreshToken,
+      token: refreshToken,
       expiresAt: refreshTokenExpiresAt,
+      type: Type.REFRESH,
     });
 
     return {

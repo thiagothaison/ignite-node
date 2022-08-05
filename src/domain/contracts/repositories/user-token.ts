@@ -4,12 +4,13 @@ type CreateParameters = {
   userId: string;
   token: string;
   expiresAt: Date;
-  type: Type
+  type: Type;
 };
 
 interface IUserTokenRepository {
   create(data: CreateParameters): Promise<UserToken>;
   findByToken(token: string, type: Type): Promise<UserToken>;
+  deleteById(id: string): Promise<void>;
 }
 
 export { IUserTokenRepository, CreateParameters };
