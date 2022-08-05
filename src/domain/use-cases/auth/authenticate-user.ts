@@ -2,9 +2,16 @@ import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
-import { jwtExpiresInMinutes, jwtKey } from "@config/auth";
+import {
+  jwtExpiresInMinutes,
+  jwtKey,
+  refreshKey,
+  refreshExpiresInDays,
+} from "@config/auth";
 
+import { IDateProvider } from "@domain/contracts/providers/date-provider";
 import { IUserRepository } from "@domain/contracts/repositories/user";
+import { IUserTokenRepository } from "@domain/contracts/repositories/user-token";
 import {
   IAuthenticateUserUseCase,
   Input,
@@ -14,7 +21,12 @@ import { AppError } from "@domain/errors/app-error";
 @injectable()
 class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
   constructor(
-    @inject("UserRepository") private userRepository: IUserRepository
+    @inject("UserRepository")
+    private userRepository: IUserRepository,
+    @inject("UserTokenRepository")
+    private userTokenRepository: IUserTokenRepository,
+    @inject("DateProvider")
+    private dateProvider: IDateProvider
   ) {}
 
   async execute({ email, password }: Input) {
@@ -35,12 +47,34 @@ class AuthenticateUserUseCase implements IAuthenticateUserUseCase {
       expiresIn: `${jwtExpiresInMinutes}m`,
     });
 
+    const refreshToken = sign(
+      {
+        email,
+      },
+      refreshKey,
+      {
+        subject: user.id,
+        expiresIn: `${refreshExpiresInDays}d`,
+      }
+    );
+
+    const refreshTokenExpiresAt = this.dateProvider.addDays(
+      +refreshExpiresInDays
+    );
+
+    await this.userTokenRepository.create({
+      userId: user.id,
+      refreshToken,
+      expiresAt: refreshTokenExpiresAt,
+    });
+
     return {
       user: {
         name: user.name,
         email: user.email,
       },
       token,
+      refreshToken,
     };
   }
 }

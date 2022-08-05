@@ -11,6 +11,7 @@ type Output = Promise<{
     email: string;
   };
   token: string;
+  refreshToken: string;
 }>;
 
 type IAuthenticateUserUseCase = IBaseUseCase<Input, Output>;
