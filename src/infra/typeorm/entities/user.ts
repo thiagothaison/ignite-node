@@ -1,4 +1,4 @@
-import { hashSync } from "bcryptjs";
+import { getSalt, hashSync } from "bcryptjs";
 import { BeforeInsert, BeforeUpdate, Column, Entity } from "typeorm";
 
 import BaseEntity from "./base-entity";
@@ -26,11 +26,11 @@ class User extends BaseEntity {
   @BeforeInsert()
   @BeforeUpdate()
   hashPassword() {
-    if (!this.password) {
-      return;
+    try {
+      getSalt(this.password);
+    } catch {
+      this.password = hashSync(this.password, process.env.APP_ENV || 8);
     }
-
-    this.password = hashSync(this.password, process.env.APP_ENV || 8);
   }
 }
 
