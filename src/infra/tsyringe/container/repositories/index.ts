@@ -7,6 +7,7 @@ import { ICategoryRepository } from "@domain/contracts/repositories/category";
 import { IRentalRepository } from "@domain/contracts/repositories/rental";
 import { ISpecificationRepository } from "@domain/contracts/repositories/specification";
 import { IUserRepository } from "@domain/contracts/repositories/user";
+import { IUserTokenRepository } from "@domain/contracts/repositories/user-token";
 
 import dataSource from "@infra/typeorm";
 import { CarRepository } from "@infra/typeorm/repositories/car";
@@ -15,6 +16,7 @@ import { CategoryRepository } from "@infra/typeorm/repositories/category";
 import { RentalRepository } from "@infra/typeorm/repositories/rental";
 import { SpecificationRepository } from "@infra/typeorm/repositories/specification";
 import { UserRepository } from "@infra/typeorm/repositories/user";
+import { UserTokenRepository } from "@infra/typeorm/repositories/user-token";
 
 container.registerInstance<DataSource>("DataSource", dataSource);
 container.registerSingleton<ICarRepository>("CarRepository", CarRepository);
@@ -35,3 +37,7 @@ container.registerSingleton<ISpecificationRepository>(
   SpecificationRepository
 );
 container.registerSingleton<IUserRepository>("UserRepository", UserRepository);
+container.registerSingleton<IUserTokenRepository>(
+  "UserTokenRepository",
+  UserTokenRepository
+);
