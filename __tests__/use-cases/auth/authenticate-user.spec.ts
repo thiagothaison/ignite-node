@@ -1,18 +1,33 @@
+import { IDateProvider } from "@domain/contracts/providers/date-provider";
 import { IUserRepository } from "@domain/contracts/repositories/user";
+import { IUserTokenRepository } from "@domain/contracts/repositories/user-token";
 import { AppError } from "@domain/errors/app-error";
 import { AuthenticateUserUseCase } from "@domain/use-cases/auth/authenticate-user";
 import { CreateUserUseCase } from "@domain/use-cases/user/create";
 
 import { UserRepository } from "@tests/repositories/user";
+import { UserTokenRepository } from "@tests/repositories/user-token";
+
+import { DayJsProvider } from "@infra/providers/date-provider/day-js-provider";
 
 let userRepository: IUserRepository;
+let userTokenRepository: IUserTokenRepository;
+let dateProvider: IDateProvider;
+
 let authenticateUserUseCase: AuthenticateUserUseCase;
 let createUserUseCase: CreateUserUseCase;
 
 describe("Authenticate User", () => {
   beforeEach(() => {
     userRepository = new UserRepository();
-    authenticateUserUseCase = new AuthenticateUserUseCase(userRepository);
+    userTokenRepository = new UserTokenRepository();
+    dateProvider = new DayJsProvider();
+
+    authenticateUserUseCase = new AuthenticateUserUseCase(
+      userRepository,
+      userTokenRepository,
+      dateProvider
+    );
     createUserUseCase = new CreateUserUseCase(userRepository);
   });
 
