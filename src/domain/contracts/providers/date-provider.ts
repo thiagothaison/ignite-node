@@ -11,10 +11,16 @@ interface IDateProvider {
       | "months"
       | "years"
   ): number;
+
   toUtc(date: Date): string;
+
   now(): Date;
+
   yesterday(): Date;
+
   tomorrow(): Date;
+
+  addDays(numberOfDays: number, date?: Date): Date;
 }
 
 export { IDateProvider };

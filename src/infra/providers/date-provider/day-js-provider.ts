@@ -28,6 +28,16 @@ class DayJsProvider implements IDateProvider {
   tomorrow() {
     return dayjs().add(1, "day").toDate();
   }
+
+  addDays(numberOfDays: number, date?: Date) {
+    const baseDay = dayjs(date);
+
+    if (numberOfDays > 0) {
+      return baseDay.add(numberOfDays, "days").toDate();
+    }
+
+    return baseDay.subtract(numberOfDays, "days").toDate();
+  }
 }
 
 export { DayJsProvider };
