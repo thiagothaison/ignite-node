@@ -34,7 +34,9 @@ class UserTokenRepository implements IUserTokenRepository {
   }
 
   async deleteById(id) {
-    this.userTokens.map((userToken) => userToken.id !== id);
+    this.userTokens = this.userTokens.filter(
+      (userToken) => userToken.id !== id
+    );
   }
 }
 
