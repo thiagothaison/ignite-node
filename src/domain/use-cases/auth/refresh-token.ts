@@ -9,6 +9,7 @@ import {
 } from "@config/auth";
 
 import { IDateProvider } from "@domain/contracts/providers/date-provider";
+import { IUserRepository } from "@domain/contracts/repositories/user";
 import { IUserTokenRepository } from "@domain/contracts/repositories/user-token";
 import {
   IRefreshTokenUseCase,
@@ -23,6 +24,8 @@ class RefreshTokenUseCase implements IRefreshTokenUseCase {
   constructor(
     @inject("UserTokenRepository")
     private userTokenRepository: IUserTokenRepository,
+    @inject("UserRepository")
+    private userRepository: IUserRepository,
     @inject("DateProvider")
     private dateProvider: IDateProvider
   ) {}
@@ -44,9 +47,7 @@ class RefreshTokenUseCase implements IRefreshTokenUseCase {
         throw new AppError("Refresh token is invalid");
       }
 
-      const {
-        user: { email },
-      } = oldRefreshToken;
+      const user = await this.userRepository.findById(userId);
 
       const token = sign({}, jwtKey, {
         subject: userId,
@@ -55,7 +56,7 @@ class RefreshTokenUseCase implements IRefreshTokenUseCase {
 
       const refreshToken = sign(
         {
-          email,
+          email: user.email,
         },
         refreshKey,
         {
