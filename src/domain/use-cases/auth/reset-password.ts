@@ -50,7 +50,7 @@ class ResetPasswordUseCase implements IResetPasswordUseCase {
       throw new AppError("Password does not match");
     }
 
-    const { user } = userToken;
+    const user = await this.userRepository.findById(userToken.userId);
     user.password = password;
 
     await this.userRepository.update(user);
