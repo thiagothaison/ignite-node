@@ -20,12 +20,18 @@ class CreateCarImageUseCase implements ICreateCarImageUseCase {
     const car = await this.carRepository.findById(carId);
 
     if (!car) {
-      throw new AppError("Car does not exists", 400);
+      throw new AppError("Car does not exists");
     }
 
-    images.forEach(async (image) => {
+    if (!images.length) {
+      throw new AppError("No image sent");
+    }
+
+    const promises = images.map(async (image) => {
       await this.carImageRepository.create({ carId, image });
     });
+
+    await Promise.all(promises);
   }
 }
 
