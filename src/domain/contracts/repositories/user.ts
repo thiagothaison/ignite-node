@@ -6,6 +6,7 @@ type CreateParameters = {
   password: string;
   driverLicense: string;
   isAdmin: boolean;
+  avatar?: string;
 };
 
 type UpdateParameters = CreateParameters & {
