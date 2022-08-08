@@ -7,7 +7,10 @@ type CsvContent = {
 
 type Input = Express.Multer.File;
 
-type Output = Promise<void>;
+type Output = Promise<{
+  successes: CsvContent[];
+  errors: CsvContent[];
+}>;
 
 interface IImportCategoryUseCase extends IBaseUseCase<Input, Output> {
   loadCategories(file: Express.Multer.File): Promise<CsvContent[]>;

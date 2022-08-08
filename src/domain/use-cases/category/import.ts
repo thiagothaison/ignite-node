@@ -8,9 +8,13 @@ import {
   IImportCategoryUseCase,
   Input,
 } from "@domain/contracts/use-cases/category/import";
+import { AppError } from "@domain/errors/app-error";
 
 @injectable()
 class ImportCategoryUseCase implements IImportCategoryUseCase {
+  private errors: CsvContent[] = [];
+  private successes: CsvContent[] = [];
+
   constructor(
     @inject("CategoryRepository")
     private categoryRepository: ICategoryRepository
@@ -18,6 +22,12 @@ class ImportCategoryUseCase implements IImportCategoryUseCase {
 
   async loadCategories(file: Input) {
     return new Promise<CsvContent[]>((resolve, reject) => {
+      try {
+        fs.statSync(file.path);
+      } catch (err) {
+        throw new AppError("Upload file does not exists");
+      }
+
       const categories = [];
 
       const stream = fs.createReadStream(file.path);
@@ -30,6 +40,11 @@ class ImportCategoryUseCase implements IImportCategoryUseCase {
       parseFile
         .on("data", async (line) => {
           const [name, description] = line;
+
+          if (!name || !description) {
+            this.errors.push({ name, description });
+            return;
+          }
 
           categories.push({ name, description });
         })
@@ -44,7 +59,11 @@ class ImportCategoryUseCase implements IImportCategoryUseCase {
   async execute(file: Input) {
     const categories = await this.loadCategories(file);
 
-    categories.forEach(async (category) => {
+    if (!categories.length) {
+      throw new AppError("This file doest have an valid list");
+    }
+
+    const promises = categories.map(async (category) => {
       const { name } = category;
       const categoryAlreadyExists = await this.categoryRepository.findByName(
         name
@@ -52,8 +71,23 @@ class ImportCategoryUseCase implements IImportCategoryUseCase {
 
       if (!categoryAlreadyExists) {
         await this.categoryRepository.create(category);
+        this.successes.push(category);
+        return;
       }
+
+      this.errors.push(category);
     });
+
+    await Promise.all(promises);
+
+    if (this.successes.length === 0 && this.errors.length > 0) {
+      throw new AppError("Import was not successful");
+    }
+
+    return {
+      successes: this.successes,
+      errors: this.errors,
+    };
   }
 }
 
