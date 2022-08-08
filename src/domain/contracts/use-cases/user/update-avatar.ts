@@ -7,7 +7,7 @@ type Input = {
   avatar: string;
 };
 
-type Output = Promise<void>;
+type Output = Promise<User>;
 
 type IUpdateUserAvatarUseCase = IBaseUseCase<Input, Output>;
 
