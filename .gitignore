@@ -1,5 +1,5 @@
-node_modules
-storage
-coverage
-.vscode
-.env
+/node_modules
+/storage
+/coverage
+/.vscode
+/.env
