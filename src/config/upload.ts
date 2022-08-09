@@ -1,21 +1,20 @@
-import crypto from "crypto";
-import multer from "multer";
-import { resolve, extname } from "path";
+import { Options } from "multer";
+import { container, inject, injectable } from "tsyringe";
 
-const upload = (directory: string) => {
-  return {
-    storage: multer.diskStorage({
-      destination: resolve(process.cwd(), "storage", directory),
-      filename: (request, file, callback) => {
-        const fileHash = crypto.randomBytes(16).toString("hex");
-        const fileName = `${fileHash}${extname(file.originalname)}`;
+import { IStorageProvider } from "@domain/contracts/providers/storage";
 
-        return callback(null, fileName);
-      },
-    }),
-  };
-};
+@injectable()
+class UploadConfiguration {
+  constructor(
+    @inject("StorageProvider") private storageProvider: IStorageProvider
+  ) {}
 
-export default {
-  upload,
-};
+  getConfig(directory: string): Options {
+    return {
+      storage: this.storageProvider.getMulterStorage(directory),
+    };
+  }
+}
+
+export default container.resolve(UploadConfiguration);
+export { UploadConfiguration };

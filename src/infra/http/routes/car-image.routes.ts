@@ -1,12 +1,12 @@
 import { Router } from "express";
 import multer from "multer";
 
-import UploadConfig from "@config/upload";
+import Upload from "@config/upload";
 
 import { CreateCarImageController } from "@application/controllers/car-image/create";
 
+const upload = multer(Upload.getConfig("cars"));
 const carImageRoutes = Router();
-const upload = multer(UploadConfig.upload("cars"));
 
 const createCarImageController = new CreateCarImageController();
 

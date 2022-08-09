@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 
-import UploadConfig from "@config/upload";
+import Upload from "@config/upload";
 
 import { CreateUserController } from "@application/controllers/user/create";
 import { ListUserController } from "@application/controllers/user/list";
@@ -11,7 +11,7 @@ import { isAdmin } from "@infra/http/middlewares/is-admin";
 
 const userRoutes = Router();
 
-const upload = multer(UploadConfig.upload("avatars"));
+const upload = multer(Upload.getConfig("avatars"));
 
 const createUserController = new CreateUserController();
 const listUserController = new ListUserController();
