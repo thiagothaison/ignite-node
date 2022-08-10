@@ -27,7 +27,7 @@ class UpdateUserAvatarUseCase implements IUpdateUserAvatarUseCase {
     const user = await this.userRepository.update(userToUpdate);
 
     if (oldAvatar) {
-      this.storageProvider.delete(`/storage/avatars/${oldAvatar}`);
+      await this.storageProvider.delete(`avatars/${oldAvatar}`);
     }
 
     return user;

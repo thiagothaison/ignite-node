@@ -9,6 +9,8 @@ import { UpdateUserAvatarController } from "@application/controllers/user/update
 
 import { isAdmin } from "@infra/http/middlewares/is-admin";
 
+import { singleUpload } from "../middlewares/single-upload";
+
 const userRoutes = Router();
 
 const upload = multer(Upload.getConfig("avatars"));
@@ -24,6 +26,7 @@ userRoutes.post("/", createUserController.handle);
 userRoutes.patch(
   "/update-avatar",
   upload.single("avatar"),
+  singleUpload,
   updateUserAvatarController.handle
 );
 

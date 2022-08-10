@@ -24,7 +24,7 @@ class LocalStorageProvider extends BaseStorage implements IStorageProvider {
   }
 
   async delete(file: string) {
-    const filenamePath = resolve(process.cwd(), file);
+    const filenamePath = resolve(process.cwd(), "storage", file);
 
     try {
       fs.statSync(filenamePath);

@@ -46,6 +46,8 @@ class S3StorageProvider extends BaseStorage implements IStorageProvider {
         },
         (err) => {
           if (err) reject(err);
+
+          resolve();
         }
       );
     });

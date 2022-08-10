@@ -7,4 +7,12 @@ declare global {
       user: User;
     }
   }
+
+  declare namespace Express.Multer {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    export interface File {
+      key?: string;
+      location?: string;
+    }
+  }
 }

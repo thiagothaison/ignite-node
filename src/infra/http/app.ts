@@ -16,6 +16,10 @@ app.use(express.json());
 
 app.use("/docs", SwaggerUi.serve, SwaggerUi.setup(swaggerFile));
 
+if (process.env.NODE_ENV !== "production") {
+  app.use("/static", express.static("storage"));
+}
+
 app.use(router);
 
 app.use(errorHandler);
