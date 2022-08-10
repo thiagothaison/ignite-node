@@ -1,19 +1,26 @@
+import { IStorageProvider } from "@domain/contracts/providers/storage";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { AppError } from "@domain/errors/app-error";
-import { deleteFile } from "@domain/helpers/file";
 import { UpdateUserAvatarUseCase } from "@domain/use-cases/user/update-avatar";
 
 import { UserRepository } from "@tests/repositories/user";
 
+import { LocalStorageProvider } from "@infra/providers/storage/local";
+
 let userRepository: IUserRepository;
+let storageProvider: IStorageProvider;
 let updateAvatarUseCase: UpdateUserAvatarUseCase;
 
-jest.mock("@domain/helpers/file");
+jest.mock("@infra/providers/storage/local");
 
 describe("Create user", () => {
   beforeEach(() => {
     userRepository = new UserRepository();
-    updateAvatarUseCase = new UpdateUserAvatarUseCase(userRepository);
+    storageProvider = new LocalStorageProvider();
+    updateAvatarUseCase = new UpdateUserAvatarUseCase(
+      userRepository,
+      storageProvider
+    );
   });
 
   const createUser = async () => {
@@ -46,6 +53,6 @@ describe("Create user", () => {
     });
 
     expect(user.avatar).toBe("new-file.png");
-    expect(deleteFile).toHaveBeenCalled();
+    expect(storageProvider.delete).toHaveBeenCalled();
   });
 });

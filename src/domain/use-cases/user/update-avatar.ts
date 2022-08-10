@@ -1,17 +1,18 @@
 import { inject, injectable } from "tsyringe";
 
+import { IStorageProvider } from "@domain/contracts/providers/storage";
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import {
   IUpdateUserAvatarUseCase,
   Input,
 } from "@domain/contracts/use-cases/user/update-avatar";
 import { AppError } from "@domain/errors/app-error";
-import { deleteFile } from "@domain/helpers/file";
 
 @injectable()
 class UpdateUserAvatarUseCase implements IUpdateUserAvatarUseCase {
   constructor(
-    @inject("UserRepository") private userRepository: IUserRepository
+    @inject("UserRepository") private userRepository: IUserRepository,
+    @inject("StorageProvider") private storageProvider: IStorageProvider
   ) {}
 
   async execute({ user: userToUpdate, avatar }: Input) {
@@ -26,7 +27,7 @@ class UpdateUserAvatarUseCase implements IUpdateUserAvatarUseCase {
     const user = await this.userRepository.update(userToUpdate);
 
     if (oldAvatar) {
-      deleteFile(`./storage/avatars/${oldAvatar}`);
+      this.storageProvider.delete(`/storage/avatars/${oldAvatar}`);
     }
 
     return user;
