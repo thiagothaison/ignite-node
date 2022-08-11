@@ -1,0 +1,25 @@
+{
+  "presets": [
+    ["@babel/preset-env", {"targets": {"node": "current"}}],
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@swaggerFile": "./swagger.json",
+          "@application": "./src/application",
+          "@config": "./src/config",
+          "@domain": "./src/domain",
+          "@infra": "./src/infra",
+          "@shared": "./src/shared"
+        }
+      }
+    ],
+    "babel-plugin-transform-typescript-metadata",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
+  ]
+}
