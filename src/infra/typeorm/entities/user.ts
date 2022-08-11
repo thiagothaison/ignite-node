@@ -1,4 +1,5 @@
 import { getSalt, hashSync } from "bcryptjs";
+import { Expose } from "class-transformer";
 import { BeforeInsert, BeforeUpdate, Column, Entity } from "typeorm";
 
 import BaseEntity from "./base-entity";
@@ -22,6 +23,15 @@ class User extends BaseEntity {
 
   @Column()
   avatar: string;
+
+  @Expose()
+  avatarUrl(): string {
+    if (process.env.NODE_ENV === "production") {
+      return `${process.env.AWS_BUCKET_URL}/avatars/${this.avatar}`;
+    }
+
+    return `/static/avatars/${this.avatar}`;
+  }
 
   @BeforeInsert()
   @BeforeUpdate()
