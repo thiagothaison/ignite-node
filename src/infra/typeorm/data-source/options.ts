@@ -1,5 +1,5 @@
-import "./src/config/dotenv";
-
+import "@config/dotenv";
+import path from "path";
 import { DataSourceOptions } from "typeorm";
 import { SeederOptions } from "typeorm-extension";
 
@@ -11,10 +11,10 @@ const dataSourceProductionOptions: DataSourceOptions & SeederOptions = {
   password: process.env.DB_PASSWORD || "test",
   database: process.env.DB_DATABASE || "test",
   logging: process.env.DB_LOGGING === "true",
-  migrations: ["src/infra/typeorm/migrations/*.ts"],
-  entities: ["src/infra/typeorm/entities/*.ts"],
-  seeds: ["src/infra/typeorm/seeds/*.seeder.ts"],
-  factories: ["src/infra/typeorm/factories/*.factory.ts"],
+  migrations: [path.join(__dirname, "../migrations/*.{js,ts}")],
+  entities: [path.join(__dirname, "../entities/*.{js,ts}")],
+  seeds: [path.join(__dirname, "../seeds/*.seeder.{js,ts}")],
+  factories: [path.join(__dirname, "../factories/*.factory.{js,ts}")],
 };
 
 const dataSourceTestOptions = {

@@ -2,7 +2,7 @@ import request from "supertest";
 import { runSeeder } from "typeorm-extension";
 
 import { app } from "@infra/http/app";
-import AppDataSource from "@infra/typeorm";
+import AppDataSource from "@infra/typeorm/data-source";
 import CreateAdminUserSeeder from "@infra/typeorm/seeds/create-admin-user.seeder";
 
 describe("Create category controller", () => {

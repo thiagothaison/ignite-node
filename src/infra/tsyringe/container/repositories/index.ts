@@ -9,7 +9,7 @@ import { ISpecificationRepository } from "@domain/contracts/repositories/specifi
 import { IUserRepository } from "@domain/contracts/repositories/user";
 import { IUserTokenRepository } from "@domain/contracts/repositories/user-token";
 
-import dataSource from "@infra/typeorm";
+import dataSource from "@infra/typeorm/data-source";
 import { CarRepository } from "@infra/typeorm/repositories/car";
 import { CarImageRepository } from "@infra/typeorm/repositories/car-image";
 import { CategoryRepository } from "@infra/typeorm/repositories/category";

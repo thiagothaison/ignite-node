@@ -1,8 +1,8 @@
 import "@config/dotenv";
 
-import dataSourceOptions from "@dataSourceOptions";
-
 import { DataSource } from "typeorm";
+
+import dataSourceOptions from "./options";
 
 const AppDataSource = new DataSource(dataSourceOptions);
 
