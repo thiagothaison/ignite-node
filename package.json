@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn .",
+    "build": "rimraf dist && babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "start": "NODE_ENV=production node dist/infra/http/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
     "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/dist/cli/index.js seed",
     "lint": "eslint '*/**/*.ts' --quiet --fix",
