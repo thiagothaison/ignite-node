@@ -10,7 +10,6 @@
     "baseUrl": "./src",
     "paths": {
       "@swaggerFile": ["../swagger.json"],
-      "@dataSourceOptions": ["../ormconfig.ts"],
       "@application/*": ["application/*"],
       "@config/*": ["config/*"],
       "@domain/*": ["domain/*"],

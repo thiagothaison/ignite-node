@@ -56,7 +56,6 @@
             {
                 "newlinesBetween": "always",
                 "groups": [
-                    "/^@dataSourceOptions/",
                     "/^@swaggerFile/",
                     "module",
                     "/^@config/",
