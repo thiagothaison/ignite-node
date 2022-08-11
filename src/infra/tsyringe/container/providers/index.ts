@@ -6,13 +6,16 @@ import { IStorageProvider } from "@domain/contracts/providers/storage";
 
 import { DayJsProvider } from "@infra/providers/date-provider/day-js-provider";
 import { EtherealProvider } from "@infra/providers/mail/ethereal";
+import { GmailProvider } from "@infra/providers/mail/gmail";
 import { LocalStorageProvider } from "@infra/providers/storage/local";
 import { S3StorageProvider } from "@infra/providers/storage/s3";
 
 container.registerSingleton<IDateProvider>("DateProvider", DayJsProvider);
 container.registerInstance<IMailProvider>(
   "MailProvider",
-  new EtherealProvider()
+  process.env.NODE_ENV === "production"
+    ? new GmailProvider()
+    : new EtherealProvider()
 );
 
 container.registerInstance<IStorageProvider>(
