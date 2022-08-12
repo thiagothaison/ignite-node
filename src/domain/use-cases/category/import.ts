@@ -1,5 +1,6 @@
 import { parse } from "csv-parse";
 import fs from "fs";
+import { Readable } from "stream";
 import { inject, injectable } from "tsyringe";
 
 import { ICategoryRepository } from "@domain/contracts/repositories/category";
@@ -22,15 +23,9 @@ class ImportCategoryUseCase implements IImportCategoryUseCase {
 
   async loadCategories(file: Input) {
     return new Promise<CsvContent[]>((resolve, reject) => {
-      try {
-        fs.statSync(file.path);
-      } catch (err) {
-        throw new AppError("Upload file does not exists");
-      }
-
       const categories = [];
 
-      const stream = fs.createReadStream(file.path);
+      const stream = Readable.from(file.buffer);
       const parseFile = parse({
         delimiter: ",",
       });
@@ -48,10 +43,7 @@ class ImportCategoryUseCase implements IImportCategoryUseCase {
 
           categories.push({ name, description });
         })
-        .on("end", () => {
-          fs.promises.unlink(file.path);
-          resolve(categories);
-        })
+        .on("end", () => resolve(categories))
         .on("error", (error) => reject(error));
     });
   }

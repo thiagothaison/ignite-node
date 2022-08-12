@@ -52,18 +52,6 @@ describe("Create an category", () => {
     return mockedFile as Express.Multer.File;
   };
 
-  it("Should not be able to import a non-existent file", async () => {
-    const fakeFile = {
-      fieldname: "file.csv",
-      originalname: "file.csv",
-      path: "/fake/path/from/file.csv",
-    };
-
-    await expect(
-      importCategoryUseCase.execute(fakeFile as Express.Multer.File)
-    ).rejects.toEqual(new AppError("Upload file does not exists"));
-  });
-
   it("Should not be able to import an invalid file", async () => {
     await expect(
       importCategoryUseCase.execute(getMockedFile("invalid"))

@@ -8,10 +8,10 @@ import { ImportCategoryController } from "@application/controllers/category/impo
 import { ListCategoriesController } from "@application/controllers/category/list";
 
 import { isAdmin } from "@infra/http/middlewares/is-admin";
-import { LocalStorageProvider } from "@infra/providers/storage/local";
+import { MemoryStorageProvider } from "@infra/providers/storage/memory";
 
-const localStorage = new LocalStorageProvider();
-const uploadConfiguration = new UploadConfiguration(localStorage);
+const memoryStorage = new MemoryStorageProvider();
+const uploadConfiguration = new UploadConfiguration(memoryStorage);
 
 const upload = multer(uploadConfiguration.getConfig("tmp"));
 
