@@ -8,11 +8,13 @@ import "express-async-errors";
 import SwaggerUi from "swagger-ui-express";
 
 import { errorHandler } from "./middlewares/error-handler";
+import { rateLimiter } from "./middlewares/rate-limiter";
 import { router } from "./routes";
 
 const app = express();
 
 app.use(express.json());
+app.use(rateLimiter);
 
 app.use("/docs", SwaggerUi.serve, SwaggerUi.setup(swaggerFile));
 
